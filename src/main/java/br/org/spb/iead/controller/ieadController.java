@@ -55,6 +55,9 @@ public class ieadController {
 
     @RequestMapping(value ="/novoevento", method = RequestMethod.POST)
     public String savePost(@Valid Evento evento, BindingResult result, RedirectAttributes attributes){
+        if(evento.getNomeColaborador().isBlank()){
+            evento.setNomeColaborador("Anonimo");
+        }
         evento.setDataSys(LocalDate.now());
         ieadRep.save(evento);
         return "redirect:/eventos";

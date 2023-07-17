@@ -20,7 +20,7 @@ public class Evento {
     private String nomeColaborador;
 
     @NotBlank(message = "O texto é obrigatório")
-    private boolean eventRelacPac;
+    private String eventRelacPac;
 
     @NotBlank(message = "O texto é obrigatório")
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
@@ -56,7 +56,6 @@ public class Evento {
     @Column(columnDefinition = "TEXT")
     private String acaoImediata;
 
-
     public long getId() {
         return id;
     }
@@ -81,11 +80,11 @@ public class Evento {
         this.nomeColaborador = nomeColaborador;
     }
 
-    public boolean isEventRelacPac() {
+    public String getEventRelacPac() {
         return eventRelacPac;
     }
 
-    public void setEventRelacPac(boolean eventRelacPac) {
+    public void setEventRelacPac(String eventRelacPac) {
         this.eventRelacPac = eventRelacPac;
     }
 

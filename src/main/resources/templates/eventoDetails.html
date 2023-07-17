@@ -1,10 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Blog</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="style/styleCss.css"/>-->
 </head>
 <body>
 
+<header>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1" style="font-weight: bold;">IEAD</span>
+        <a href="/newpost" class="btn btn-primary" role="button">Novo Evento</a>
+    </nav>
+</header>
+
+<section>
+    <div class="container"  style="width: 60%; padding-bottom: 30px;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background-color: white; padding-left: 0px;">
+                <li class="breadcrumb-item " aria-current="page"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item " aria-current="page"><a href="/eventos">Eventos</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Evento</li>
+            </ol>
+        </nav>
+
+        <article>
+            <h1 class="card-title" style="font-weight: bold; margin-bottom: 20px;"><span th:text="${evento.classificacao}"></span></h1>
+            <p class="card-subtitle mb-2 text-muted">
+                <i class="material-icons">person_outline</i>
+                <span th:text="${evento.nomeColaborador}"></span>
+                <br>
+                <i class="material-icons">date_range</i>
+                <span th:text="${evento.data}"></span>
+            </p>
+            <p><strong>Crachá:</strong> <span th:text="${evento.cracha}"></span></p>
+            <p><strong>Evento Relacionado ao PAC:</strong> <span th:text="${evento.eventRelacPac}"/></p>
+            <p><strong>Hora:</strong> <span th:text="${#temporals.format(evento.hora, 'HH:mm')}"></span></p>
+            <p><strong>Data do Sistema:</strong> <span th:text="${#temporals.format(evento.dataSys, 'dd-MM-yyyy')}"></span></p>
+            <p><strong>Turno:</strong> <span th:text="${evento.turno}"></span></p>
+            <p><strong>Setor de Ocorrência:</strong> <span th:text="${evento.setorOcorrencia}"></span></p>
+            <p><strong>Setor Notificante:</strong> <span th:text="${evento.setorNotificante}"></span></p>
+            <p><strong>Classificação:</strong> <span th:text="${evento.classificacao}"></span></p>
+            <section>
+                <p class="card-text" style="margin-top: 40px;"><span th:utext="${evento.descricaoEvento}"></span></p>
+            </section>
+            <section>
+                <p class="card-text" style="margin-top: 40px;"><strong>Ação Imediata:</strong> <span th:utext="${evento.acaoImediata}"></span></p>
+            </section>
+        </article>
+
+
+
+    </div>
+</section>
 </body>
 </html>

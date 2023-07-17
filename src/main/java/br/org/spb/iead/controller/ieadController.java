@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -29,6 +30,7 @@ public class ieadController {
     public ModelAndView getPosts(){
         ModelAndView mv = new ModelAndView("eventos");
         List<Evento> eventos = ieadRep.findAll();
+        eventos.sort(Comparator.comparing(Evento::getId, Comparator.reverseOrder()));
         mv.addObject("eventos",eventos);
         return mv;
 

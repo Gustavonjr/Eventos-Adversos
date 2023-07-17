@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -22,15 +23,14 @@ public class Evento {
     @NotBlank(message = "O texto é obrigatório")
     private String eventRelacPac;
 
-    @NotBlank(message = "O texto é obrigatório")
+    @NotBlank(message = "A hora é obrigatória")
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
-    private LocalDate data;
+    private String data;
 
-    @NotBlank(message = "O texto é obrigatório")
+    @NotBlank(message = "A hora é obrigatória")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime hora;
+    private String hora;
 
-    @NotBlank(message = "O texto é obrigatório")
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
     private LocalDate dataSys;
 
@@ -88,19 +88,19 @@ public class Evento {
         this.eventRelacPac = eventRelacPac;
     }
 
-    public LocalDate getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(String data) {
         this.data = data;
     }
 
-    public LocalTime getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(LocalTime hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 

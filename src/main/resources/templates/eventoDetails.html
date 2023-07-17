@@ -13,7 +13,10 @@
 <header>
     <nav class="navbar navbar-light bg-light">
         <span class="navbar-brand mb-0 h1" style="font-weight: bold;">IEAD</span>
-        <a href="/newpost" class="btn btn-primary" role="button">Novo Evento</a>
+        <div class="ml-auto">
+            <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento</a>
+            <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
+        </div>
     </nav>
 </header>
 
@@ -23,7 +26,7 @@
             <ol class="breadcrumb" style="background-color: white; padding-left: 0px;">
                 <li class="breadcrumb-item " aria-current="page"><a href="/">Inicio</a></li>
                 <li class="breadcrumb-item " aria-current="page"><a href="/eventos">Eventos</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Evento</li>
+                <li class="breadcrumb-item active" aria-current="page">Detalhe do evento</li>
             </ol>
         </nav>
 
@@ -38,8 +41,8 @@
             </p>
             <p><strong>Crachá:</strong> <span th:text="${evento.cracha}"></span></p>
             <p><strong>Evento Relacionado ao PAC:</strong> <span th:text="${evento.eventRelacPac}"/></p>
-            <p><strong>Hora:</strong> <span th:text="${#temporals.format(evento.hora, 'HH:mm')}"></span></p>
-            <p><strong>Data do Sistema:</strong> <span th:text="${#temporals.format(evento.dataSys, 'dd-MM-yyyy')}"></span></p>
+            <p><strong>Hora:</strong> <span th:text="${evento.hora}"></span></p>
+            <p><strong>Data:</strong> <span th:text="${evento.data}"></span></p>
             <p><strong>Turno:</strong> <span th:text="${evento.turno}"></span></p>
             <p><strong>Setor de Ocorrência:</strong> <span th:text="${evento.setorOcorrencia}"></span></p>
             <p><strong>Setor Notificante:</strong> <span th:text="${evento.setorNotificante}"></span></p>

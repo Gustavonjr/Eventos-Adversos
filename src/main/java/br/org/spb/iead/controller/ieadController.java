@@ -5,6 +5,8 @@ import br.org.spb.iead.repository.ieadRepository;
 import br.org.spb.iead.service.IeadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -29,6 +34,12 @@ public class ieadController {
 
     }
 
+    @RequestMapping(value = "/eventos2", method = RequestMethod.GET)
+    public ResponseEntity<List<Evento>> getPosts2() {
+        List<Evento> eventos = ieadRep.findAll();
+        return new ResponseEntity<>(eventos, HttpStatus.OK);
+    }
+
     @RequestMapping(value="/eventos/{id}", method=RequestMethod.GET)
     public ModelAndView getEventoDetails(@PathVariable("id") long id){
         ModelAndView mv = new ModelAndView("eventoDetails");
@@ -36,5 +47,18 @@ public class ieadController {
         mv.addObject("evento", evento);
         return mv;
     }
+
+    @RequestMapping(value = "/novoevento", method = RequestMethod.GET)
+    public String getEventoForm(){
+        return "eventoForm";
+    }
+
+    @RequestMapping(value ="/novoevento", method = RequestMethod.POST)
+    public String savePost(@Valid Evento evento, BindingResult result, RedirectAttributes attributes){
+        evento.setDataSys(LocalDate.now());
+        ieadRep.save(evento);
+        return "redirect:/eventos";
+    }
+
 
 }

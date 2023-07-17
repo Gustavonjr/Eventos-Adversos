@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Blog</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="style/styleCss.css"/>-->
+
+
+    <!-- Função para gerar as opções do select -->
+    <script>
+    function gerarOpcoesSelect() {
+        var opcoes = '<option selected></option>';
+        opcoes += '<option value="Terreo C">Terreo C</option>';
+        opcoes += '<option value="Ala - 1C">Ala - 1C</option>';
+        opcoes += '<option value="Ala - 1D">Ala - 1D</option>';
+        opcoes += '<option value="Ala - 2C">Ala - 2C</option>';
+        opcoes += '<option value="Ala - 2H">Ala - 2H</option>';
+        opcoes += '<option value="Ala - 3H">Ala - 3H</option>';
+        opcoes += '<option value="Ala - 6H">Ala - 6H</option>';
+        opcoes += '<option value="Agencia Transfusional">Agencia Transfusional</option>';
+        opcoes += '<option value="Almoxarifado">Almoxarifado</option>';
+        opcoes += '<option value="Ambulatorio">Ambulatorio</option>';
+        opcoes += '<option value="Angiocorpore">Angiocorpore</option>';
+        opcoes += '<option value="Auditoria e Contas Hospitalares">Auditoria e Contas Hospitalares</option>';
+        opcoes += '<option value="Bene Visao">Bene Visao</option>';
+        opcoes += '<option value="CCIH">CCIH</option>';
+        opcoes += '<option value="Centro Cirurgico">Centro Cirurgico</option>';
+        opcoes += '<option value="Comunicacao Corporativa">Comunicacao Corporativa</option>';
+        opcoes += '<option value="Contabilidade">Contabilidade</option>';
+        opcoes += '<option value="Contas Medicas">Contas Medicas</option>';
+        opcoes += '<option value="Controladoria">Controladoria</option>';
+        opcoes += '<option value="Davita">Davita</option>';
+        opcoes += '<option value="Departamento de Enfermagem">Departamento de Enfermagem</option>';
+        opcoes += '<option value="Diretoria Clinica">Diretoria Clinica</option>';
+        opcoes += '<option value="Educacao Permanente">Educacao Permanente</option>';
+        opcoes += '<option value="Endoscopia">Endoscopia</option>';
+        opcoes += '<option value="Engenharia Clinica">Engenharia Clinica</option>';
+        opcoes += '<option value="Espaco do Colaborador">Espaco do Colaborador</option>';
+        opcoes += '<option value="Farmacia">Farmacia</option>';
+        opcoes += '<option value="Fisioterapia">Fisioterapia</option>';
+        opcoes += '<option value="Gasoterapia">Gasoterapia</option>';
+        opcoes += '<option value="Hemodinamica">Hemodinamica</option>';
+        opcoes += '<option value="Higienizacao">Higienizacao</option>';
+        opcoes += '<option value="Hotelaria">Hotelaria</option>';
+        opcoes += '<option value="Juridico">Juridico</option>';
+        opcoes += '<option value="Laboratorio">Laboratorio</option>';
+        opcoes += '<option value="Luto">Luto</option>';
+        opcoes += '<option value="Manutencao Geral">Manutencao Geral</option>';
+        opcoes += '<option value="Medicina Nuclear">Medicina Nuclear</option>';
+        opcoes += '<option value="Nefrologia">Nefrologia</option>';
+        opcoes += '<option value="Nucleo Med">Nucleo Med</option>';
+        opcoes += '<option value="Oftalmologia">Oftalmologia</option>';
+        opcoes += '<option value="Patrimonio">Patrimonio</option>';
+        opcoes += '<option value="Portaria">Portaria</option>';
+        opcoes += '<option value="Pronto Socorro">Pronto Socorro</option>';
+        opcoes += '<option value="Qualidade">Qualidade</option>';
+        opcoes += '<option value="Quimioterapia">Quimioterapia</option>';
+        opcoes += '<option value="Radioterapia">Radioterapia</option>';
+        opcoes += '<option value="Recepcao">Recepcao</option>';
+        opcoes += '<option value="Recursos Humanos">Recursos Humanos</option>';
+        opcoes += '<option value="Ressonancia Magnetica">Ressonancia Magnetica</option>';
+        opcoes += '<option value="Servico de Atendimento ao Cliente (SAC)">Servico de Atendimento ao Cliente (SAC)</option>';
+        opcoes += '<option value="Sala de Emergencia">Sala de Emergencia</option>';
+        opcoes += '<option value="Servico de Nutricao e Dietetica (SND)">Servico de Nutricao e Dietetica (SND)</option>';
+        opcoes += '<option value="Servico Social">Servico Social</option>';
+        opcoes += '<option value="SESMT">SESMT</option>';
+        opcoes += '<option value="Tecnologia da Informacao (TI)">Tecnologia da Informacao (TI)</option>';
+        opcoes += '<option value="Telefonia">Telefonia</option>';
+        opcoes += '<option value="Tesouraria">Tesouraria</option>';
+        opcoes += '<option value="Transporte Clinico">Transporte Clinico</option>';
+        opcoes += '<option value="Transportes">Transportes</option>';
+        opcoes += '<option value="Tomosantos">Tomosantos</option>';
+        opcoes += '<option value="UTI Cardio">UTI Cardio</option>';
+        opcoes += '<option value="UTI I">UTI I</option>';
+        opcoes += '<option value="UTI II">UTI II</option>';
+        opcoes += '<option value="UTI III">UTI III</option>';
+        opcoes += '<option value="UTI IV">UTI IV</option>';
+        opcoes += '<option value="Outros">Outros</option>';
+        return opcoes;
+    }
+
+</script>
+
+
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-light bg-light">
+        <a href="/"><span class="navbar-brand mb-0 h1" style="font-weight: bold;">IEAD</span></a>
+        <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
+    </nav>
+</header>
+
+<section>
+    <div class="container" style="width: 60%; padding-bottom: 30px;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background-color: white; padding-left: 0px;">
+                <li class="breadcrumb-item " aria-current="page"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Novo Evento</li>
+            </ol>
+        </nav>
+
+
+        <duv>
+            <form method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="nomeColaborador" placeholder="Nome do Colaborador:"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" name="cracha" placeholder="Crachá:" required>
+                </div>
+
+
+                <div class="row">
+                    <div class="col">
+                        <legend class="col-form-label pt-0 nowrap">Relacionado ao paciente ?</legend>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="eventRelacPac" id="eventRelacPac" value="SIM">
+                            <label class="form-check-label" for="eventRelacPac">Sim</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="eventRelacPac" id="eventRelacPac2" value="NÃO" checked >
+                            <label class="form-check-label" for="eventRelacPac2">Não</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="hora">Hora do ocorrido:</label>
+                            <input type="time" class="form-control" id="hora" name="hora" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="data">Data do ocorrido:</label>
+                            <input type="date" class="form-control" id="data" name="data" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="turno">Turno</label>
+                    </div>
+                    <select class="custom-select" id="turno" name="turno" required>
+                        <option disabled selected></option>
+                        <option value="Diurno">Diurno</option>
+                        <option value="Noturno">Noturno</option>
+                    </select>
+                </div>
+
+                <!-- Componente Setor da Ocorrência -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="setorOcorrencia">Setor da Ocorrência</label>
+                    </div>
+                    <select class="custom-select" id="setorOcorrencia" name="setorOcorrencia" required>
+                        <script>document.write(gerarOpcoesSelect());</script>
+                    </select>
+                </div>
+
+                <!-- Componente Setor do Notificante -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="setorNotificante">Setor do Notificante</label>
+                    </div>
+                    <select class="custom-select" id="setorNotificante" name="setorNotificante" required>
+                        <script>document.write(gerarOpcoesSelect());</script>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="classificacao">Classificação</label>
+                    </div>
+                    <select class="custom-select" id="classificacao" name="classificacao" required>
+                        <option selected></option>
+                        <option value="Condição Insegura">Condição Insegura</option>
+                        <option value="Near Miss ou Quase Falha">Near Miss ou Quase Falha</option>
+                        <option value="Dano Leve">Dano Leve</option>
+                        <option value="Dano Moderado">Dano Moderado</option>
+                        <option value="Dano Grave">Dano Grave</option>
+                        <option value="Sentinela">Sentinela </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricaoEvento">Descrição do Evento</label>
+                    <textarea class="form-control" id="descricaoEvento" name="descricaoEvento" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="acaoImediata">Ação imediata</label>
+                    <textarea class="form-control" id="acaoImediata" name="acaoImediata" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Enviar</button>
+                <a href="/" class="btn btn-light" role="button" style="margin-top: 10px;">Cancelar</a>
+
+            </form>
+        </duv>
+
+
+    </div>
+</section>
+
+
+</body>
+</html>

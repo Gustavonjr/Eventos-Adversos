@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -62,6 +61,9 @@ public class Evento {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "HH:mm")
     private LocalTime horaResolvidoUpdate;
+
+    private String nomePaciente;
+    private String numeroAtendimento;
 
     public long getId() {
         return id;
@@ -189,5 +191,21 @@ public class Evento {
 
     public void setHoraResolvidoUpdate(LocalTime horaResolvidoUpdate) {
         this.horaResolvidoUpdate = horaResolvidoUpdate;
+    }
+
+    public String getNomePaciente() {
+        return nomePaciente;
+    }
+
+    public void setNomePaciente(String nomePaciente) {
+        this.nomePaciente = nomePaciente;
+    }
+
+    public String getNumeroAtendimento() {
+        return numeroAtendimento;
+    }
+
+    public void setNumeroAtendimento(String numeroAtendimento) {
+        this.numeroAtendimento = numeroAtendimento;
     }
 }

@@ -1,20 +1,18 @@
 package br.org.spb.iead.service.serviceImp;
 
 import br.org.spb.iead.model.Evento;
-import br.org.spb.iead.repository.ieadRepository;
-import br.org.spb.iead.service.IeadService;
+import br.org.spb.iead.repository.eventoRepository;
+import br.org.spb.iead.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ieadServiceImpl implements IeadService {
+public class eventoServiceImpl implements EventoService {
 
     @Autowired
-    ieadRepository ieadRep;
+    eventoRepository ieadRep;
 
     @Override
     public List<Evento> findAll() { return ieadRep.findAll(); }

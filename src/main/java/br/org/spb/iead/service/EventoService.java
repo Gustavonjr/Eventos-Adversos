@@ -4,7 +4,7 @@ import br.org.spb.iead.model.Evento;
 
 import java.util.List;
 
-public interface IeadService {
+public interface EventoService {
 
     List<Evento> findAll();
     Evento findById(long id);

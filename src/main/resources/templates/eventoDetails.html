@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head>
-    <title>Blog</title>
+    <title>iEAD</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!--<link rel="stylesheet" href="style/styleCss.css"/>-->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-Ky+HjN2cBw8IBAjMLZACMC3A/T2mv9Wk4k6dqLW9/sDUi67I3p/gdoRbYoqgB8JF" crossorigin="anonymous"></script>
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" integrity="sha384-x/JX9yfJj0LmcXlSMygDj/KQmbmTw2kihSwIDxfk+8R2Rmn8VKn7hOx9jStfetM6" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
 </head>
 <body>
 
@@ -23,16 +34,35 @@
 <section>
     <div class="container"  style="width: 60%; padding-bottom: 30px;">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb" style="background-color: white; padding-left: 0px;">
-                <li class="breadcrumb-item " aria-current="page"><a href="/">Inicio</a></li>
-                <li class="breadcrumb-item " aria-current="page"><a href="/eventos">Eventos</a></li>
+            <ol class="breadcrumb align-items-center" style="background-color: white; padding-left: 0px;">
+                <li class="breadcrumb-item" aria-current="page"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="/eventos">Eventos</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detalhe do evento</li>
             </ol>
         </nav>
 
         <article>
-            <h1 class="card-title" style="font-weight: bold; margin-bottom: 20px;"><span th:text="${evento.classificacao}"></span></h1>
-            <p class="card-subtitle mb-2 text-muted">
+            <div class="d-flex justify-content-between">
+                <h1 class="card-title" style="font-weight: bold; margin-bottom: 20px;"><span th:text="${evento.classificacao}"></span></h1>
+                <form th:action="@{'/eventos/' + ${evento.id} + '/update'}" method="post">
+                    <div class="form-row align-items-center">
+                        <div class="col-auto my-1">
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="resolvido">
+                                <option value="Não Verificado" th:selected="${evento.resolvido == 'Não Verificado'}">Não
+                                    Verificado</option>
+                                <option value="Verificado" th:selected="${evento.resolvido == 'Verificado'}">Verificado</option>
+                                <option value="Em Andamento" th:selected="${evento.resolvido == 'Em Andamento'}">Em
+                                    Andamento</option>
+                            </select>
+                        </div>
+                        <div class="col-auto my-1">
+                            <button type="submit" class="btn btn-primary">Alterar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <p class="card-subtitle mb-2 text-muted" style="padding-bottom: 15px;">
                 <i class="material-icons">person_outline</i>
                 <span th:text="${evento.nomeColaborador}"></span>
                 <br>
@@ -40,7 +70,9 @@
                 <span th:text="${evento.data}"></span>
             </p>
             <p><strong>Crachá:</strong> <span th:text="${evento.cracha}"></span></p>
-            <p><strong>Evento Relacionado ao PAC:</strong> <span th:text="${evento.eventRelacPac}"/></p>
+            <p><strong>Evento Relacionado ao Paciente:</strong> <span th:text="${evento.eventRelacPac}"/></p>
+            <p><strong>Paciente:</strong> <span th:text="${evento.nomePaciente}"/></p>
+            <p><strong>Numero do Atendimento:</strong> <span th:text="${evento.numeroAtendimento}"/></p>
             <p><strong>Hora:</strong> <span th:text="${evento.hora}"></span></p>
             <p><strong>Data:</strong> <span th:text="${evento.data}"></span></p>
             <p><strong>Turno:</strong> <span th:text="${evento.turno}"></span></p>
@@ -54,23 +86,6 @@
                 <p class="card-text" style="margin-top: 40px;"><strong>Ação Imediata:</strong> <span th:utext="${evento.acaoImediata}"></span></p>
             </section>
         </article>
-
-            <form th:action="@{'/eventos/' + ${evento.id} + '/update'}" method="post" style="padding-top: 20px">
-            <div class="form-row align-items-center">
-                <div class="col-auto my-1">
-
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="resolvido">
-                        <option value="Não Verificado" th:selected="${evento.resolvido == 'Não Verificado'}">Não Verificado</option>
-                        <option value="Verificado" th:selected="${evento.resolvido == 'Verificado'}">Verificado</option>
-                        <option value="Em Andamento" th:selected="${evento.resolvido == 'Em Andamento'}">Em Andamento</option>
-                    </select>
-                </div>
-                <div class="col-auto my-1">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </div>
-        </form>
-
 
 
 

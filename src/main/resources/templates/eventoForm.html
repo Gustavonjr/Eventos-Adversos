@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head>
-    <title>Blog</title>
+    <title>iEAD</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <!-- Bootstrap CSS -->
@@ -9,81 +9,46 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!--<link rel="stylesheet" href="style/styleCss.css"/>-->
 
-
-    <!-- Função para gerar as opções do select -->
     <script>
-    function gerarOpcoesSelect() {
-        var opcoes = '<option selected></option>';
-        opcoes += '<option value="Terreo C">Terreo C</option>';
-        opcoes += '<option value="Ala - 1C">Ala - 1C</option>';
-        opcoes += '<option value="Ala - 1D">Ala - 1D</option>';
-        opcoes += '<option value="Ala - 2C">Ala - 2C</option>';
-        opcoes += '<option value="Ala - 2H">Ala - 2H</option>';
-        opcoes += '<option value="Ala - 3H">Ala - 3H</option>';
-        opcoes += '<option value="Ala - 6H">Ala - 6H</option>';
-        opcoes += '<option value="Agencia Transfusional">Agencia Transfusional</option>';
-        opcoes += '<option value="Almoxarifado">Almoxarifado</option>';
-        opcoes += '<option value="Ambulatorio">Ambulatorio</option>';
-        opcoes += '<option value="Angiocorpore">Angiocorpore</option>';
-        opcoes += '<option value="Auditoria e Contas Hospitalares">Auditoria e Contas Hospitalares</option>';
-        opcoes += '<option value="Bene Visao">Bene Visao</option>';
-        opcoes += '<option value="CCIH">CCIH</option>';
-        opcoes += '<option value="Centro Cirurgico">Centro Cirurgico</option>';
-        opcoes += '<option value="Comunicacao Corporativa">Comunicacao Corporativa</option>';
-        opcoes += '<option value="Contabilidade">Contabilidade</option>';
-        opcoes += '<option value="Contas Medicas">Contas Medicas</option>';
-        opcoes += '<option value="Controladoria">Controladoria</option>';
-        opcoes += '<option value="Davita">Davita</option>';
-        opcoes += '<option value="Departamento de Enfermagem">Departamento de Enfermagem</option>';
-        opcoes += '<option value="Diretoria Clinica">Diretoria Clinica</option>';
-        opcoes += '<option value="Educacao Permanente">Educacao Permanente</option>';
-        opcoes += '<option value="Endoscopia">Endoscopia</option>';
-        opcoes += '<option value="Engenharia Clinica">Engenharia Clinica</option>';
-        opcoes += '<option value="Espaco do Colaborador">Espaco do Colaborador</option>';
-        opcoes += '<option value="Farmacia">Farmacia</option>';
-        opcoes += '<option value="Fisioterapia">Fisioterapia</option>';
-        opcoes += '<option value="Gasoterapia">Gasoterapia</option>';
-        opcoes += '<option value="Hemodinamica">Hemodinamica</option>';
-        opcoes += '<option value="Higienizacao">Higienizacao</option>';
-        opcoes += '<option value="Hotelaria">Hotelaria</option>';
-        opcoes += '<option value="Juridico">Juridico</option>';
-        opcoes += '<option value="Laboratorio">Laboratorio</option>';
-        opcoes += '<option value="Luto">Luto</option>';
-        opcoes += '<option value="Manutencao Geral">Manutencao Geral</option>';
-        opcoes += '<option value="Medicina Nuclear">Medicina Nuclear</option>';
-        opcoes += '<option value="Nefrologia">Nefrologia</option>';
-        opcoes += '<option value="Nucleo Med">Nucleo Med</option>';
-        opcoes += '<option value="Oftalmologia">Oftalmologia</option>';
-        opcoes += '<option value="Patrimonio">Patrimonio</option>';
-        opcoes += '<option value="Portaria">Portaria</option>';
-        opcoes += '<option value="Pronto Socorro">Pronto Socorro</option>';
-        opcoes += '<option value="Qualidade">Qualidade</option>';
-        opcoes += '<option value="Quimioterapia">Quimioterapia</option>';
-        opcoes += '<option value="Radioterapia">Radioterapia</option>';
-        opcoes += '<option value="Recepcao">Recepcao</option>';
-        opcoes += '<option value="Recursos Humanos">Recursos Humanos</option>';
-        opcoes += '<option value="Ressonancia Magnetica">Ressonancia Magnetica</option>';
-        opcoes += '<option value="Servico de Atendimento ao Cliente (SAC)">Servico de Atendimento ao Cliente (SAC)</option>';
-        opcoes += '<option value="Sala de Emergencia">Sala de Emergencia</option>';
-        opcoes += '<option value="Servico de Nutricao e Dietetica (SND)">Servico de Nutricao e Dietetica (SND)</option>';
-        opcoes += '<option value="Servico Social">Servico Social</option>';
-        opcoes += '<option value="SESMT">SESMT</option>';
-        opcoes += '<option value="Tecnologia da Informacao (TI)">Tecnologia da Informacao (TI)</option>';
-        opcoes += '<option value="Telefonia">Telefonia</option>';
-        opcoes += '<option value="Tesouraria">Tesouraria</option>';
-        opcoes += '<option value="Transporte Clinico">Transporte Clinico</option>';
-        opcoes += '<option value="Transportes">Transportes</option>';
-        opcoes += '<option value="Tomosantos">Tomosantos</option>';
-        opcoes += '<option value="UTI Cardio">UTI Cardio</option>';
-        opcoes += '<option value="UTI I">UTI I</option>';
-        opcoes += '<option value="UTI II">UTI II</option>';
-        opcoes += '<option value="UTI III">UTI III</option>';
-        opcoes += '<option value="UTI IV">UTI IV</option>';
-        opcoes += '<option value="Outros">Outros</option>';
-        return opcoes;
+    // Função genérica para buscar dados e preencher uma lista
+    function preencherLista(endpoint, selectId, optionValueKey, optionTextKey) {
+        // Fazer a requisição HTTP para o endpoint fornecido
+        fetch(endpoint)
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById(selectId);
+
+                // Limpar a lista atual, caso haja alguma opção
+                select.innerHTML = '';
+
+                // Adicionar a opção vazia
+                const emptyOption = document.createElement('option');
+                emptyOption.value = '';
+                emptyOption.textContent = 'Selecione um setor';
+                select.appendChild(emptyOption);
+
+                // Iterar sobre os dados e criar as opções para a lista
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item[optionValueKey];
+                    option.textContent = item[optionTextKey];
+                    select.appendChild(option);
+                });
+
+                // Definir a opção vazia como selecionada
+                select.value = '';
+            })
+            .catch(error => console.error('Erro ao buscar os dados:', error));
     }
 
+    // Chamar a função de preenchimento das listas quando a página carregar
+    document.addEventListener('DOMContentLoaded', function() {
+        preencherLista('/setores', 'setorOcorrencia', 'setor', 'setor');
+        preencherLista('/setores', 'setorNotificante', 'setor', 'setor');
+    });
+
 </script>
+
 
 
 </head>
@@ -117,7 +82,7 @@
                 </div>
 
 
-                <div class="row">
+                <div class="row" style="padding-top: 20">
                     <div class="col">
                         <legend class="col-form-label pt-0 nowrap">Relacionado ao paciente ?</legend>
                     </div>
@@ -132,6 +97,17 @@
                             <input class="form-check-input" type="radio" name="eventRelacPac" id="eventRelacPac2" value="NÃO" checked >
                             <label class="form-check-label" for="eventRelacPac2">Não</label>
                         </div>
+                    </div>
+                </div>
+
+                <div id="camposRelacionados">
+                    <div class="form-group">
+                        <label for="nomePaciente">Nome do Paciente</label>
+                        <input type="text" class="form-control" id="nomePaciente" name="nomePaciente" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="numeroAtendimento">Número do Atendimento</label>
+                        <input type="text" class="form-control" id="numeroAtendimento" name="numeroAtendimento" disabled>
                     </div>
                 </div>
 
@@ -167,7 +143,7 @@
                         <label class="input-group-text" for="setorOcorrencia">Setor da Ocorrência</label>
                     </div>
                     <select class="custom-select" id="setorOcorrencia" name="setorOcorrencia" required>
-                        <script>document.write(gerarOpcoesSelect());</script>
+                       <!-- Os dados serão preenchidos dinamicamente aqui -->
                     </select>
                 </div>
 
@@ -177,7 +153,7 @@
                         <label class="input-group-text" for="setorNotificante">Setor do Notificante</label>
                     </div>
                     <select class="custom-select" id="setorNotificante" name="setorNotificante" required>
-                        <script>document.write(gerarOpcoesSelect());</script>
+                        <!-- Os dados serão preenchidos dinamicamente aqui -->
                     </select>
                 </div>
 
@@ -216,6 +192,26 @@
     </div>
 </section>
 
+<script>
+        function toggleCamposRelacionados() {
+        const eventRelacPac = document.getElementById('eventRelacPac');
+        const nomePaciente = document.getElementById('nomePaciente');
+        const numeroAtendimento = document.getElementById('numeroAtendimento');
+
+        if (eventRelacPac.checked) {
+            nomePaciente.disabled = false;
+            numeroAtendimento.disabled = false;
+        } else {
+            nomePaciente.disabled = true;
+            numeroAtendimento.disabled = true;
+        }
+    }
+
+    toggleCamposRelacionados();
+
+    document.getElementById('eventRelacPac').addEventListener('change', toggleCamposRelacionados);
+    document.getElementById('eventRelacPac2').addEventListener('change', toggleCamposRelacionados);
+</script>
 
 </body>
 </html>

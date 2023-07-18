@@ -9,16 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.List;
+import java.time.LocalTime;
+import java.util.*;
 
 @Controller
 public class ieadController {
@@ -33,15 +31,21 @@ public class ieadController {
         eventos.sort(Comparator.comparing(Evento::getId, Comparator.reverseOrder()));
         mv.addObject("eventos",eventos);
         return mv;
-
     }
 
-    @RequestMapping(value = "/eventos2", method = RequestMethod.GET)
-    public ResponseEntity<List<Evento>> getPosts2() {
-        List<Evento> eventos = ieadRep.findAll();
-        return new ResponseEntity<>(eventos, HttpStatus.OK);
+//    Metodo para ver como que fica no json sem visualizar o html
+@RequestMapping(value = "/CountByClassification", method = RequestMethod.GET)
+public ResponseEntity<Map<String, Integer>> getEventCountByClassification() {
+    List<Evento> eventos = ieadRep.findAll();
+    Map<String, Integer> countByClassification = new HashMap<>();
+
+    for (Evento evento : eventos) {
+        String classificacao = evento.getClassificacao();
+        countByClassification.put(classificacao, countByClassification.getOrDefault(classificacao, 0) + 1);
     }
 
+    return new ResponseEntity<>(countByClassification, HttpStatus.OK);
+}
     @RequestMapping(value="/eventos/{id}", method=RequestMethod.GET)
     public ModelAndView getEventoDetails(@PathVariable("id") long id){
         ModelAndView mv = new ModelAndView("eventoDetails");
@@ -61,9 +65,22 @@ public class ieadController {
             evento.setNomeColaborador("Anonimo");
         }
         evento.setDataSys(LocalDate.now());
+        evento.setResolvido("Não Verificado");
         ieadRep.save(evento);
         return "redirect:/eventos";
     }
+
+    @RequestMapping(value = "/eventos/{id}/update", method = RequestMethod.POST)
+    public String updateEvento(@PathVariable("id") long id, @RequestParam("resolvido") String resolvido) {
+        Evento evento = ieadRep.findById(id);
+        evento.setResolvido(resolvido);
+        evento.setDataResolvidoUpdate(LocalDate.now());
+        evento.setHoraResolvidoUpdate(LocalTime.now());
+        ieadRep.save(evento);
+        return "redirect:/eventos/";
+    }
+
+
 
 
 }

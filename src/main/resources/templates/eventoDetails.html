@@ -55,6 +55,23 @@
             </section>
         </article>
 
+            <form th:action="@{'/eventos/' + ${evento.id} + '/update'}" method="post" style="padding-top: 20px">
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="resolvido">
+                        <option value="Não Verificado" th:selected="${evento.resolvido == 'Não Verificado'}">Não Verificado</option>
+                        <option value="Verificado" th:selected="${evento.resolvido == 'Verificado'}">Verificado</option>
+                        <option value="Em Andamento" th:selected="${evento.resolvido == 'Em Andamento'}">Em Andamento</option>
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+
+
 
 
     </div>

@@ -56,6 +56,13 @@ public class Evento {
     @Column(columnDefinition = "TEXT")
     private String acaoImediata;
 
+    private String resolvido;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
+    private LocalDate dataResolvidoUpdate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "HH:mm")
+    private LocalTime horaResolvidoUpdate;
+
     public long getId() {
         return id;
     }
@@ -158,5 +165,29 @@ public class Evento {
 
     public void setAcaoImediata(String acaoImediata) {
         this.acaoImediata = acaoImediata;
+    }
+
+    public String getResolvido() {
+        return resolvido;
+    }
+
+    public void setResolvido(String resolvido) {
+        this.resolvido = resolvido;
+    }
+
+    public LocalDate getDataResolvidoUpdate() {
+        return dataResolvidoUpdate;
+    }
+
+    public void setDataResolvidoUpdate(LocalDate dataResolvidoUpdate) {
+        this.dataResolvidoUpdate = dataResolvidoUpdate;
+    }
+
+    public LocalTime getHoraResolvidoUpdate() {
+        return horaResolvidoUpdate;
+    }
+
+    public void setHoraResolvidoUpdate(LocalTime horaResolvidoUpdate) {
+        this.horaResolvidoUpdate = horaResolvidoUpdate;
     }
 }

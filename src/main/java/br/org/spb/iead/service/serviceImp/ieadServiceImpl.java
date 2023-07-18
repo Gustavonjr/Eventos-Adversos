@@ -6,6 +6,8 @@ import br.org.spb.iead.service.IeadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,4 +28,5 @@ public class ieadServiceImpl implements IeadService {
     public Evento save(Evento evento) {
         return ieadRep.save(evento);
     }
+
 }

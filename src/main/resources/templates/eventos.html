@@ -28,7 +28,10 @@
         <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="evento : ${eventos}">
             <div class="card-body">
                 <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+                    <span th:text="${evento.resolvido}" th:class="${evento.resolvido == 'Verificado'} ? 'text-success' : (${evento.resolvido == 'Não Verificado'} ? 'text-danger' : 'text-warning')"></span>
+                    <span>/</span>
                     <span th:text="${evento.setorOcorrencia}"></span>
+                    <span>/</span>
                     <span th:text="${evento.data}"></span>
                 </p>
 

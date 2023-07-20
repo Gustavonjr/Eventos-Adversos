@@ -32,7 +32,7 @@ A aplicação também inclui recursos de segurança. Os usuários precisam fazer
 
 Este é um resumo geral do projeto e suas principais características. Para obter mais detalhes sobre a implementação do código e funcionalidades específicas, é recomendado revisar o código-fonte completo.
 
-Com o maven instalado, acesse a pagina do projeto e rode o comando no terminal:
+Com o maven instalado, acesse a pagina do projeto e rode o comando no terminal para compilar o projeto em um arquivo .jar:
 
 ```
 mvn clean package

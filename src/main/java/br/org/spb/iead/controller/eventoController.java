@@ -28,6 +28,7 @@ public class eventoController {
         List<Evento> eventos = eventoService.findAll();
         eventos.sort(Comparator.comparing(Evento::getId, Comparator.reverseOrder()));
         mv.addObject("eventos",eventos);
+        System.out.println("/eventos acessado");
         return mv;
     }
 
@@ -49,6 +50,7 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
         ModelAndView mv = new ModelAndView("eventoDetails");
         Evento evento = eventoService.findById(id);
         mv.addObject("evento", evento);
+        System.out.println("/eventos/id acessado");
         return mv;
     }
 
@@ -65,7 +67,7 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
         evento.setDataSys(LocalDate.now());
         evento.setResolvido("Não Verificado");
         eventoService.save(evento);
-        return "redirect:/eventos";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/eventos/{id}/update", method = RequestMethod.POST)

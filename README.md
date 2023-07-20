@@ -26,7 +26,7 @@ Os eventos criados podem ser visualizados na página de eventos, onde são lista
 
 Os usuários também podem atualizar o status de resolvido de um evento. Para isso, basta selecionar o status adequado (por exemplo, "Resolvido" ou "Não Resolvido") e salvar a atualização.
 
-A aplicação também inclui recursos de segurança. Os usuários precisam fazer login para acessar certas páginas, e apenas usuários autenticados têm permissão para criar eventos ou atualizar seus status. O Spring Security gerencia a autenticação e autorização dos usuários com base nas informações armazenadas no banco de dados.
+A aplicação também inclui recursos de segurança. Os usuários precisam fazer login para acessar certas páginas, e apenas usuários autenticados têm permissão para visualizar listagem de eventos ou atualizar seus status. O Spring Security gerencia a autenticação e autorização dos usuários com base nas informações armazenadas no banco de dados.
 
 ## Observação
 

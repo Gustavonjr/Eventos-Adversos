@@ -33,7 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/novoevento").permitAll()
                 .antMatchers(HttpMethod.GET, "/setores").permitAll()
                 .antMatchers(HttpMethod.POST, "/novoevento").permitAll()
-                .antMatchers(HttpMethod.GET, "/eventos").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();

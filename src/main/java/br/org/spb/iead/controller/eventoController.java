@@ -32,7 +32,19 @@ public class eventoController {
         return mv;
     }
 
-//    Metodo para ver como que fica no json sem visualizar o html
+    // Mapeamento para a URL "/eventosJs" usando a anotação @GetMapping
+
+    @GetMapping(value = "/eventosJs", produces = "application/json")
+    @ResponseBody // Esta anotação é necessária para informar ao Spring que o retorno deve ser serializado como corpo da resposta (JSON)
+    public ResponseEntity<List<Evento>> getEventosJs() {
+        List<Evento> eventos = eventoService.findAll();
+        eventos.sort(Comparator.comparing(Evento::getId, Comparator.reverseOrder()));
+        System.out.println("/eventosJs acessado");
+
+        // Define o cabeçalho Content-Type como application/json e retorna a lista de eventos
+        return ResponseEntity.ok().body(eventos);
+    }
+
 @RequestMapping(value = "/resolvidos", method = RequestMethod.GET)
 public ResponseEntity<Map<String, Integer>> getResolvidos() {
     List<Evento> eventos = eventoService.findAll();

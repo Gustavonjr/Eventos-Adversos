@@ -11,7 +11,8 @@ public class IncidentesEEventosAdversosApplication {
 	public static void main(String[] args) {
 				SpringApplication.run(IncidentesEEventosAdversosApplication.class, args);
 
-		System.out.println(new BCryptPasswordEncoder().encode("admin"));
+		//System.out.println(new BCryptPasswordEncoder().encode("admin"));
+		System.out.println("Bem vindo!");
 	}
 
 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+  <title>iEAD</title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!--<link rel="stylesheet" href="style/styleCss.css"/>-->
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header>
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1" style="font-weight: bold;">IEAD</span>
+    <div class="ml-auto">
+      <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento</a>
+      <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
+    </div>
+  </nav>
+
+
+  <div class="container" style="padding-top: 50px;">
+    <div class="row">
+      <div class="col-md-6">
+        <canvas id="classificationChart" width="400" height="400"></canvas>
+      </div>
+      <div class="col-md-6">
+        <canvas id="eventLineChart" width="400" height="400"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+  // Função para buscar os dados do endpoint /resolvidos
+  function fetchClassificationData() {
+    fetch('/resolvidos')
+      .then(response => response.json())
+      .then(data => {
+        console.log("Dados de Classificação:", data);
+        populateChart(data);
+      })
+      .catch(error => console.error(error));
+  }
+
+  // Função para popular o gráfico de pizza com os dados retornados do endpoint
+  function populateChart(data) {
+    const classifications = Object.keys(data);
+    const quantities = Object.values(data);
+
+    const ctx = document.getElementById('classificationChart').getContext('2d');
+    const classificationChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: classifications,
+        datasets: [{
+          data: quantities,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.7)',
+            'rgba(54, 162, 235, 0.7)',
+            'rgba(255, 206, 86, 0.7)',
+            // Add more colors here for additional categories
+          ],
+        }]
+      },
+    });
+
+    // Chamar a função para buscar os dados do endpoint /eventosPorData
+    fetchEventData();
+  }
+
+  // Função para buscar os dados do endpoint /eventosPorData
+  function fetchEventData() {
+    fetch('/eventosPorData')
+      .then(response => response.json())
+      .then(data => {
+        console.log("Dados de Eventos por Data:", data);
+        populateEventLineChart(data);
+      })
+      .catch(error => console.error(error));
+  }
+
+  // Função para criar o gráfico de linhas com os dados de eventos por data
+  function populateEventLineChart(data) {
+    const dates = Object.keys(data);
+    const eventCounts = Object.values(data);
+
+    const ctx = document.getElementById('eventLineChart').getContext('2d');
+    const eventLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: dates,
+        datasets: [{
+          label: 'Quantidade de Eventos',
+          data: eventCounts,
+          fill: false,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          tension: 0.1,
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Data'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Quantidade de Eventos'
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // Chamar as funções para buscar os dados quando a página carregar
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchClassificationData();
+  });
+</script>
+
+</header>
+
+</body>
+</html>

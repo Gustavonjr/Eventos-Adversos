@@ -15,5 +15,4 @@ public class IncidentesEEventosAdversosApplication {
 		System.out.println("Bem vindo!");
 	}
 
-
 }

@@ -83,6 +83,27 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
 
     return new ResponseEntity<>(countByClassification, HttpStatus.OK);
 }
+    @RequestMapping(value = "/eventosPorData", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Integer>> getEventosPorData() {
+        List<Evento> eventos = eventoService.findAll();
+        Map<String, Integer> countByYearMonth = new HashMap<>();
+
+        for (Evento evento : eventos) {
+            String data = evento.getData();
+            String yearMonth = data.substring(0, 7); // Extrai somente o ano e o mês (yyyy-MM)
+            countByYearMonth.put(yearMonth, countByYearMonth.getOrDefault(yearMonth, 0) + 1);
+        }
+
+        // Ordena o mapa por chave (ano e mês)
+        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        countByYearMonth.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEachOrdered(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
+
+        return new ResponseEntity<>(sortedMap, HttpStatus.OK);
+    }
+
     @RequestMapping(value="/eventos/{id}", method=RequestMethod.GET)
     public ModelAndView getEventoDetails(@PathVariable("id") long id){
         ModelAndView mv = new ModelAndView("eventoDetails");
@@ -92,6 +113,11 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
         return mv;
     }
 
+
+    @RequestMapping(value = "/gerenciar", method = RequestMethod.GET)
+    public String getGerentiar(){
+        return "gerenciarEventos";
+    }
     @RequestMapping(value = "/novoevento", method = RequestMethod.GET)
     public String getEventoForm(){
         return "eventoForm";
@@ -102,8 +128,10 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
         if(evento.getNomeColaborador().isBlank()){
             evento.setNomeColaborador("Anonimo");
         }
-        evento.setDataSys(LocalDate.now());
+
         evento.setResolvido("Não Verificado");
+        evento.setDataSys(LocalDate.now());
+
         eventoService.save(evento);
 
         // Enviar e-mail com os dados do evento
@@ -126,7 +154,7 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
     private void enviarEmail(Evento evento) {
         try {
             // Configurar os detalhes do e-mail
-            String assunto = "Novo evento criado";
+            String assunto = "Novo evento criado - Evn#" + evento.getId();
             String corpo = "Prezado(a) usuário,\n\n" +
                     "Um novo evento foi criado em nosso sistema. Seguem abaixo os detalhes do evento:\n\n" +
                     "Informações do Evento:\n" +

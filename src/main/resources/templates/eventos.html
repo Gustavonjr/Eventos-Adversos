@@ -10,9 +10,28 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Papaparse -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+    <!-- Estilos do DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+
+    <!-- Scripts do DataTables e dependências -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
+    // FILTROS DA TABELA
   $(document).ready(function() {
+    $('#tabela-eventos').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.11.0/i18n/Portuguese-Brasil.json" // Tradução para o Português do Brasil
+      }
+      // Outras opções do DataTables, se necessário
+    });
+  });
+
+$(document).ready(function() {
     $("#btnDownload").click(function() {
       $.get("/eventosJs", function(data) {
         const csv = Papa.unparse(data);
@@ -27,6 +46,7 @@
       });
     });
   });
+
 </script>
 
 
@@ -40,11 +60,8 @@
     </nav>
 </header>
 
-
-
-
 <section>
-    <div class="container"  style="width: 60%; padding-bottom: 30px;">
+    <div class="container"  style="width: 90%; padding-bottom: 30px;">
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb" style="background-color: white; padding-left: 0px;">
@@ -52,23 +69,50 @@
                 <li class="breadcrumb-item active" aria-current="page">Eventos</li>
             </ol>
         </nav>
+        <!-- Botão para baixar CSV -->
         <button id="btnDownload" class="btn btn-primary">Baixar Planilha CSV</button>
-        <div class="card-container">
-            <div class="card shadow-sm bg-white rounded" style="margin-top: 20px; margin-left:auto; margin-right:auto;" th:each="evento : ${eventos}">
-                <div class="card-body">
-                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
-                        <span th:text="${evento.resolvido}" th:class="${evento.resolvido == 'Verificado'} ? 'text-success' : (${evento.resolvido == 'Não Verificado'} ? 'text-danger' : 'text-warning')"></span>
-                        <span>/</span>
-                        <span th:text="${evento.setorOcorrencia}"></span>
-                        <span>/</span>
-                        <span th:text="${evento.data}"></span>
-                    </p>
 
-                    <a th:href="@{~/eventos/{id}(id=${evento.id})}" class="text-decoration-none"><h4 class="card-title fw-bold" style="color: black; padding-top: 5px;"><span th:text="${evento.classificacao}"></span></h4></a>
-                    <p class="card-text"><span th:utext="${#strings.abbreviate(evento.descricaoEvento,200)}"></span></p>
-                </div>
-            </div>
+        <!-- Botão para baixar PDF -->
+        <a href="/gerenciar" class="btn btn-secondary" role="button">Gerenciar</a>
+
+        <div class="table-responsive" STYLE="margin-top: 20px;">
+            <table id="tabela-eventos" class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Status</th>
+                    <th>Setor de Ocorrência</th>
+                    <th>Data</th>
+                    <th>Classificação</th>
+                    <th>Descrição do Evento</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Supondo que ${eventos} é uma lista de objetos com propriedades como resolvido, setorOcorrencia, data, classificacao e descricaoEvento -->
+                <tr th:each="evento : ${eventos}">
+                    <td>
+                        <a th:href="@{~/eventos/{id}(id=${evento.id})}" th:text="${evento.id}" style="color: black;"></a>
+                    </td>
+                    <td>
+                        <a th:href="@{~/eventos/{id}(id=${evento.id})}" th:text="${evento.resolvido}" th:class="${evento.resolvido == 'Verificado'} ? 'text-success' : (${evento.resolvido == 'Não Verificado'} ? 'text-danger' : 'text-warning')"></a>
+                    </td>
+                    <td>
+                        <a th:href="@{~/eventos/{id}(id=${evento.id})}" th:text="${evento.setorOcorrencia}"  style="color: black;"></a>
+                    </td>
+                    <td>
+                        <span th:text="${evento.data}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{~/eventos/{id}(id=${evento.id})}" class="text-decoration-none" th:text="${evento.classificacao}" style="color: black;"></a>
+                    </td>
+                    <td>
+                        Evn#<a th:text="${evento.id}"></a>-<span th:utext="${#strings.abbreviate(evento.descricaoEvento, 200)}"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
+
     </div>
     </section>
 </body>

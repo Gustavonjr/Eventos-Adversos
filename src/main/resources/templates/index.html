@@ -7,6 +7,9 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!--<link rel="stylesheet" href="style/styleCss.css"/>-->
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -18,51 +21,6 @@
       <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
     </div>
   </nav>
-
-  <div class="container" style="width: 40%; padding-top: 50px;">
-    <table class="table">
-      <thead class="thead-dark">
-      <tr>
-        <th scope="col">Status</th>
-        <th scope="col">Quantidade</th>
-      </tr>
-      </thead>
-      <tbody id="classificationTableBody"></tbody>
-    </table>
-  </div>
-
-
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script>
-<!--    Função para buscar os dados do endpoint /resolvidos-->
-        function fetchClassificationData() {
-            fetch('/resolvidos')
-                .then(response => response.json())
-                .then(data => populateTable(data))
-                .catch(error => console.error(error));
-        }
-
-<!--    Função para popular a tabela com os dados retornados do endpoint-->
-        function populateTable(data) {
-            const tableBody = document.getElementById('classificationTableBody');
-            for (const classification in data) {
-                const row = document.createElement('tr');
-                const classificationCell = document.createElement('td');
-                const quantityCell = document.createElement('td');
-                classificationCell.textContent = classification;
-                quantityCell.textContent = data[classification];
-                row.appendChild(classificationCell);
-                row.appendChild(quantityCell);
-                tableBody.appendChild(row);
-            }
-        }
-
-<!--    Chamar a função para buscar os dados quando a página carregar-->
-        document.addEventListener('DOMContentLoaded', fetchClassificationData);
-    </script>
-
 </header>
 
 </body>

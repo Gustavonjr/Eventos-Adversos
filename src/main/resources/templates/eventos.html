@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head>
-    <title>iEAD</title>
+    <title>Eventos</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <!-- Bootstrap CSS -->
@@ -23,13 +23,12 @@
     <script>
     // FILTROS DA TABELA
   $(document).ready(function() {
-    $('#tabela-eventos').DataTable({
-      "language": {
-        "url": "//cdn.datatables.net/plug-ins/1.11.0/i18n/Portuguese-Brasil.json" // Tradução para o Português do Brasil
-      }
-      // Outras opções do DataTables, se necessário
-    });
+  $('#tabela-eventos').DataTable({
+    "language": {
+      "url": "//cdn.datatables.net/plug-ins/1.11.0/i18n/Portuguese-Brasil.json" // Tradução para o Português do Brasil
+    },
   });
+});
 
 $(document).ready(function() {
     $("#btnDownload").click(function() {
@@ -55,7 +54,7 @@ $(document).ready(function() {
 
 <header>
     <nav class="navbar navbar-light bg-light">
-        <a href="/"><span class="navbar-brand mb-0 h1" style="font-weight: bold;">IEAD</span></a>
+        <a href="/"><span class="navbar-brand mb-0 h1" style="font-weight: bold;">HBPS</span></a>
         <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento</a>
     </nav>
 </header>
@@ -72,7 +71,7 @@ $(document).ready(function() {
         <!-- Botão para baixar CSV -->
         <button id="btnDownload" class="btn btn-primary">Baixar Planilha CSV</button>
 
-        <!-- Botão para baixar PDF -->
+        <!-- Botão para os graficos -->
         <a href="/gerenciar" class="btn btn-secondary" role="button">Gerenciar</a>
 
         <div class="table-responsive" STYLE="margin-top: 20px;">
@@ -88,7 +87,6 @@ $(document).ready(function() {
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Supondo que ${eventos} é uma lista de objetos com propriedades como resolvido, setorOcorrencia, data, classificacao e descricaoEvento -->
                 <tr th:each="evento : ${eventos}">
                     <td>
                         <a th:href="@{~/eventos/{id}(id=${evento.id})}" th:text="${evento.id}" style="color: black;"></a>

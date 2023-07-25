@@ -29,14 +29,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
-                .antMatchers(HttpMethod.GET, "/resolvidos").permitAll()
                 .antMatchers(HttpMethod.GET, "/novoevento").permitAll()
-                .antMatchers(HttpMethod.GET, "/setores").permitAll()
                 .antMatchers(HttpMethod.POST, "/novoevento").permitAll()
+                .antMatchers(HttpMethod.GET, "/setores").permitAll()
+                .antMatchers(HttpMethod.GET, "/eventos").hasAnyRole("ADMIN","USER","QUALIDADE")
+                .antMatchers(HttpMethod.GET, "/gerenciar").hasAnyRole("ADMIN","USER","QUALIDADE")
+                .antMatchers(HttpMethod.POST, "/usuariosForm").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/usuariosForm").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/usuarios").hasAnyRole("ADMIN","USER")
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
-
 
     }
 

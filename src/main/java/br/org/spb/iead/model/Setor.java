@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 public class Setor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotBlank

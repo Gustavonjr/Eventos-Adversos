@@ -8,13 +8,14 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "TB_RoLE")
+@Table(name = "TB_ROLE")
 public class RoleModel implements GrantedAuthority, Serializable {
     private static final long serialVersionUID=1L;
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID roleID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long roleID;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)
@@ -25,11 +26,11 @@ public class RoleModel implements GrantedAuthority, Serializable {
         return this.roleName.toString();
     }
 
-    public UUID getRoleID() {
+    public long getRoleID() {
         return roleID;
     }
 
-    public void setRoleID(UUID roleID) {
+    public void setRoleID(long roleID) {
         this.roleID = roleID;
     }
 

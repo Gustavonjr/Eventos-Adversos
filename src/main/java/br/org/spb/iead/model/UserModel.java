@@ -1,5 +1,6 @@
 package br.org.spb.iead.model;
 
+import org.springframework.context.annotation.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,17 +15,19 @@ import java.util.UUID;
 public class UserModel implements UserDetails, Serializable {
     private static final long serialVersionUID=1L;
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long userId;
     @Column(nullable = false, unique = true)
     private String username;
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String password;
+
     @ManyToMany
     @JoinTable(name = "TB_USERS_ROLES",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+            inverseJoinColumns = @JoinColumn(name = "roleid"))
     private List<RoleModel> roles;
 
 
@@ -63,11 +66,11 @@ public class UserModel implements UserDetails, Serializable {
         return true;
     }
 
-    public UUID getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -85,5 +88,15 @@ public class UserModel implements UserDetails, Serializable {
 
    public void setRoles(List<RoleModel> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

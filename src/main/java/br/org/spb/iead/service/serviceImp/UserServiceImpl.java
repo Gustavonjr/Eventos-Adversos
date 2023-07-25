@@ -4,10 +4,12 @@ import br.org.spb.iead.model.UserModel;
 import br.org.spb.iead.repository.UserRepository;
 import br.org.spb.iead.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired

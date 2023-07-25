@@ -2,7 +2,7 @@ package br.org.spb.iead.enums;
 
 public enum RoleName {
 
-    ADMIN,
-    USER,
-    QUALIDADE;
+    ROLE_ADMIN,
+    ROLE_USER,
+    ROLE_QUALIDADE;
 }

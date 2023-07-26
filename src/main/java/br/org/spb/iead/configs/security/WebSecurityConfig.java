@@ -24,6 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //TODO LISTAR E REVISAR TODOS OS ENDPOINTS E SUAS REGRAS DE ACESSO
         http
                 .httpBasic()
                 .and()
@@ -33,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/novoevento").permitAll()
                 .antMatchers(HttpMethod.GET, "/setores").permitAll()
                 .antMatchers(HttpMethod.GET, "/eventos").hasAnyRole("ADMIN","USER","QUALIDADE")
-                .antMatchers(HttpMethod.GET, "/gerenciar").hasAnyRole("ADMIN","USER","QUALIDADE")
+                .antMatchers(HttpMethod.GET, "/gerenciar").hasAnyRole("ADMIN","QUALIDADE")
                 .antMatchers(HttpMethod.POST, "/usuariosForm").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/usuariosForm").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET,"/usuarios").hasAnyRole("ADMIN","USER")

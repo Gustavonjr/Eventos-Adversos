@@ -2,10 +2,12 @@ package br.org.spb.iead.model;
 
 import org.springframework.context.annotation.Role;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -21,20 +23,20 @@ public class UserModel implements UserDetails, Serializable {
     private long userId;
     @Column(nullable = false, unique = true)
     private String username;
-    //@Column(nullable = false)
+
     private String password;
 
-    @ManyToMany
-    @JoinTable(name = "TB_USERS_ROLES",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "roleid"))
-    private List<RoleModel> roles;
-
+    @ManyToOne
+    private RoleModel roleModel;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(roleModel.getRoleName().toString()));
+        return authorities;
     }
+
+
 
     @Override
     public String getPassword() {
@@ -82,21 +84,11 @@ public class UserModel implements UserDetails, Serializable {
         this.password = password;
     }
 
-    public List<RoleModel> getRoles() {
-        return roles;
+    public RoleModel getRoleModel() {
+        return roleModel;
     }
 
-   public void setRoles(List<RoleModel> roles) {
-        this.roles = roles;
-    }
-
-    @Override
-    public String toString() {
-        return "UserModel{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", roles=" + roles +
-                '}';
+    public void setRoleModel(RoleModel roleModel) {
+        this.roleModel = roleModel;
     }
 }

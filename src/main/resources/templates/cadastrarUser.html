@@ -10,16 +10,62 @@
     <!--<link rel="stylesheet" href="style/styleCss.css"/>-->
 
 
+    <script>
+
+        // Função genérica para buscar dados e preencher uma lista
+    function preencherLista(endpoint, selectId, optionValueKey, optionTextKey) {
+        // Fazer a requisição HTTP para o endpoint fornecido
+        fetch(endpoint)
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById(selectId);
+
+                // Limpar a lista atual, caso haja alguma opção
+                select.innerHTML = '';
+
+                // Adicionar a opção vazia
+                const emptyOption = document.createElement('option');
+                emptyOption.value = '';
+                emptyOption.textContent = 'Selecione um perfil para o usuario';
+                select.appendChild(emptyOption);
+
+                // Iterar sobre os dados e criar as opções para a lista
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item[optionValueKey];
+                    option.textContent = item[optionTextKey];
+                    select.appendChild(option);
+                });
+
+                // Definir a opção vazia como selecionada
+                select.value = '';
+            })
+            .catch(error => console.error('Erro ao buscar os dados:', error));
+    }
+
+    // Chamar a função de preenchimento das listas quando a página carregar
+    document.addEventListener('DOMContentLoaded', function() {
+        preencherLista('/roles', 'roles', 'roleName', 'roleName');
+});
+    </script>
+
 </head>
 <body>
 
 <header>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1" style="font-weight: bold;">HBPS</span>
+        <div class="ml-auto">
+            <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento</a>
+            <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
+        </div>
+    </nav>
 </header>
 
 <section>
 
-    <div class="container">
-        <form method="post">
+    <div class="container" style="padding-top: 35px;">
+        <form action="/usuariosForm" method="post">
             <div class="form-group">
                 <input type="text" class="form-control" name="username" placeholder="Username" required>
             </div>
@@ -29,14 +75,17 @@
             <div class="form-group">
                 <input type="password" class="form-control" name="confirmPassword" placeholder="Confirmar Senha" required>
             </div>
-            <!-- Listagem das ROLES (Seleção múltipla) -->
-            <div class="form-group">
-                <select class="form-control" name="roles[]" multiple>
-                    <option value="ROLE_ADMIN">ROLE_ADMIN</option>
-                    <option value="ROLE_QUALIDADE">ROLE_QUALIDADE</option>
-                    <option value="ROLE_USER">ROLE_USER</option>
+
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="roles">Perfil</label>
+                </div>
+                <select class="custom-select" id="roles" name="roleModel.roleName" required>
+                    <!-- Os dados serão preenchidos dinamicamente aqui -->
                 </select>
             </div>
+
             <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Cadastrar</button>
             <a href="/" class="btn btn-light" role="button" style="margin-top: 10px;">Cancelar</a>
         </form>

@@ -65,6 +65,11 @@ public class Evento {
     private String nomePaciente;
     private String numeroAtendimento;
 
+    // Essa variavel nao é populada pelo usuario, somente pelo pessoal da qualidade
+
+    @ManyToOne
+    private TipoEvento tipoEvento;
+
     public long getId() {
         return id;
     }

@@ -10,6 +10,8 @@
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart.js Data Labels Plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
 <body>
 
@@ -24,20 +26,21 @@
 
 
   <div class="container" style="padding-top: 50px;">
-    <div class="row">
-      <div class="col-md-6">
-        <canvas id="classificationChart" width="400" height="400"></canvas>
-      </div>
-      <div class="col-md-6">
-        <canvas id="eventLineChart" width="400" height="400"></canvas>
-      </div>
+  <div class="row">
+    <div class="col-md-6">
+      <canvas id="classificationChart" width="600" height="600"></canvas>
+    </div>
+    <div class="col-md-6">
+      <canvas id="eventLineChart" width="600" height="600"></canvas>
     </div>
   </div>
+</div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   <script>
   // Função para buscar os dados do endpoint /resolvidos
   function fetchClassificationData() {
@@ -57,7 +60,7 @@
 
     const ctx = document.getElementById('classificationChart').getContext('2d');
     const classificationChart = new Chart(ctx, {
-      type: 'pie',
+      type: 'doughnut',
       data: {
         labels: classifications,
         datasets: [{
@@ -70,6 +73,20 @@
           ],
         }]
       },
+      plugins: [ChartDataLabels], // Habilitar o uso do plugin de rótulos de dados
+      options: {
+        plugins: {
+          datalabels: {
+            color: 'black', // Cor dos rótulos de dados (alterada para preto)
+            anchor: 'end', // Onde os rótulos de dados devem ser ancorados (pode ser 'start', 'center' ou 'end')
+            align: 'end', // Alinhamento dos rótulos de dados (pode ser 'start', 'center' ou 'end')
+            formatter: (value) => {
+              // Mostrar os valores do gráfico com 2 casas decimais (ou mais se necessário)
+              return value.toFixed(2);
+            }
+          }
+        }
+      }
     });
 
     // Chamar a função para buscar os dados do endpoint /eventosPorData
@@ -118,6 +135,11 @@
               display: true,
               text: 'Quantidade de Eventos'
             }
+          }
+        },
+        plugins: {
+          datalabels: {
+            display: false // Desabilitar rótulos de dados para o gráfico de linhas
           }
         }
       }

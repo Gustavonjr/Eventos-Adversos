@@ -1,6 +1,6 @@
 package br.org.spb.iead.model;
 
-import br.org.spb.iead.enums.RoleName;
+
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -17,13 +17,20 @@ public class RoleModel implements GrantedAuthority, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long roleID;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, unique = true)
-    private RoleName roleName;
+
+    private String roleName;
 
     @Override
     public String getAuthority() {
         return this.roleName.toString();
+    }
+
+    public RoleModel(){
+
+    }
+
+    public RoleModel(String roleName) {
+        this.roleName = roleName;
     }
 
     public long getRoleID() {
@@ -34,11 +41,11 @@ public class RoleModel implements GrantedAuthority, Serializable {
         this.roleID = roleID;
     }
 
-    public RoleName getRoleName() {
+    public String getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(RoleName roleName) {
+    public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 }

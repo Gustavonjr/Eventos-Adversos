@@ -26,7 +26,7 @@
                 // Adicionar a opção vazia
                 const emptyOption = document.createElement('option');
                 emptyOption.value = '';
-                emptyOption.textContent = 'Selecione um perfil para o usuario';
+                emptyOption.textContent = 'Selecione';
                 select.appendChild(emptyOption);
 
                 // Iterar sobre os dados e criar as opções para a lista
@@ -72,10 +72,6 @@
             <div class="form-group">
                 <input type="password" class="form-control" name="password" placeholder="Senha" required>
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="confirmPassword" placeholder="Confirmar Senha" required>
-            </div>
-
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">

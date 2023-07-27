@@ -22,7 +22,7 @@ public class RoleModel implements GrantedAuthority, Serializable {
 
     @Override
     public String getAuthority() {
-        return this.roleName.toString();
+        return this.roleName;
     }
 
     public RoleModel(){

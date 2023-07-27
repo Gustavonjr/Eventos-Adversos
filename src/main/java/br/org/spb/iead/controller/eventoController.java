@@ -1,6 +1,9 @@
 package br.org.spb.iead.controller;
 
 import br.org.spb.iead.model.Evento;
+import br.org.spb.iead.model.Problema;
+import br.org.spb.iead.model.RoleModel;
+import br.org.spb.iead.repository.ProblemaRepository;
 import br.org.spb.iead.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +29,9 @@ public class eventoController {
 
     @Autowired
     EventoService eventoService;
+
+    @Autowired
+    ProblemaRepository problemaRepository;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -141,11 +147,31 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
     }
 
     @RequestMapping(value = "/eventos/{id}/update", method = RequestMethod.POST)
-    public String updateEvento(@PathVariable("id") long id, @RequestParam("resolvido") String resolvido) {
+    public String updateEvento(@PathVariable("id") long id,  @RequestParam("problema.problema") String problema ) {
         Evento evento = eventoService.findById(id);
-        evento.setResolvido(resolvido);
-        evento.setDataResolvidoUpdate(LocalDate.now());
-        evento.setHoraResolvidoUpdate(LocalTime.now());
+        Problema problema1 = problemaRepository.findByProblema(problema);
+
+        if(!problema.equals(evento.getProblema().getProblema())){
+            evento.setDataClassificacaoUpdate(LocalDate.now());
+            evento.setHoraClassificacaoUpdate(LocalTime.now());
+            evento.setProblema(problema1);
+        }
+
+        evento.setProblema(problema1);
+        eventoService.save(evento);
+        return "redirect:/eventos/";
+    }
+
+    @RequestMapping(value = "/eventos/{id}/updateR", method = RequestMethod.POST)
+    public String updateEventoR(@PathVariable("id") long id, @RequestParam("resolvido") String resolvido ) {
+        Evento evento = eventoService.findById(id);
+
+        if(!resolvido.equals(evento.getResolvido())){
+            evento.setDataResolvidoUpdate(LocalDate.now());
+            evento.setHoraResolvidoUpdate(LocalTime.now());
+            evento.setResolvido(resolvido);
+        }
+
         eventoService.save(evento);
         return "redirect:/eventos/";
     }

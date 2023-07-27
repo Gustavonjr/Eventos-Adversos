@@ -17,6 +17,47 @@
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+    <script>
+
+        // Função genérica para buscar dados e preencher uma lista
+    function preencherLista(endpoint, selectId, optionValueKey, optionTextKey) {
+        // Fazer a requisição HTTP para o endpoint fornecido
+        fetch(endpoint)
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById(selectId);
+
+                // Limpar a lista atual, caso haja alguma opção
+                select.innerHTML = '';
+
+                // Adicionar a opção vazia
+                const emptyOption = document.createElement('option');
+                emptyOption.value = '';
+                emptyOption.textContent = 'Selecione';
+                select.appendChild(emptyOption);
+
+                // Iterar sobre os dados e criar as opções para a lista
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item[optionValueKey];
+                    option.textContent = item[optionTextKey];
+                    select.appendChild(option);
+                });
+
+                // Definir a opção vazia como selecionada
+                select.value = '';
+            })
+            .catch(error => console.error('Erro ao buscar os dados:', error));
+    }
+
+    // Chamar a função de preenchimento das listas quando a página carregar
+    document.addEventListener('DOMContentLoaded', function() {
+        preencherLista('/problemas', 'problema', 'problema', 'problema');
+
+});
+    </script>
+
+
 
 </head>
 <body>
@@ -42,26 +83,7 @@
         </nav>
 
         <article>
-            <div class="d-flex justify-content-between">
-                <h1 class="card-title" style="font-weight: bold; margin-bottom: 20px;"><span th:text="${evento.classificacao}"></span></h1>
-                <form th:action="@{'/eventos/' + ${evento.id} + '/update'}" method="post">
-                    <div class="form-row align-items-center">
-                        <div class="col-auto my-1">
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="resolvido">
-                                <option value="Não Verificado" th:selected="${evento.resolvido == 'Não Verificado'}">Não
-                                    Verificado</option>
-                                <option value="Verificado" th:selected="${evento.resolvido == 'Verificado'}">Verificado</option>
-                                <option value="Em Andamento" th:selected="${evento.resolvido == 'Em Andamento'}">Em
-                                    Andamento</option>
-                            </select>
-                        </div>
-                        <div class="col-auto my-1">
-                            <button type="submit" class="btn btn-primary">Alterar</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
+            <h1 class="card-title" style="font-weight: bold; margin-bottom: 20px;"><span th:text="${evento.classificacao}"></span></h1>
             <p class="card-subtitle mb-2 text-muted" style="padding-bottom: 15px;">
                 <i class="material-icons">person_outline</i>
                 <span th:text="${evento.nomeColaborador}"></span>
@@ -69,6 +91,52 @@
                 <i class="material-icons">date_range</i>
                 <span th:text="${evento.data}"></span>
             </p>
+
+                <form th:action="@{'/eventos/' + ${evento.id} + '/update'}" method="post" style="margin-left: auto; margin-right: auto;">
+                    <div style="text-align: right;">
+                        <div class="d-flex flex-row">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" style="background: #007bff"><span th:text="${evento?.problema?.processo?.tipoEvento?.tipoEvento ?: 'Sem Classificação'}" style="color: white;"></span></label>
+                            </div>
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" style="background: #17a2b8;"><span th:text="${evento?.problema?.processo?.processo?: 'Sem Classificação'}" style="color: white;"></span></label>
+                        </div>
+
+
+                            <div class="input-group mb-0">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="problema" style="background: #28a745"><span th:text="${evento?.problema?.problema?: 'Sem Classificação'}" style="color: white;"></span></label>
+                                </div>
+                                <select class="custom-select" id="problema" name="problema.problema" style="margin-right: 3px;" required>
+                                    <!-- Os dados serão preenchidos dinamicamente aqui -->
+                                </select>
+                                <button type="submit" class="btn btn-primary">Alterar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+
+                        <form th:action="@{'/eventos/' + ${evento.id} + '/updateR'}" method="post" style="margin-left: auto; margin-right: auto;">
+                            <div style="text-align: right;">
+
+                    <div class="input-group mb-3" style="padding-top: 5px;">
+                        <div class="input-group-prepend">
+                                <label class="input-group-text" for="inlineFormCustomSelect"><span>Status: <span th:text="${evento.resolvido}"></span></span></label>
+                            </div>
+                            <select class="custom-select" id="inlineFormCustomSelect" name="resolvido" style="margin-right: 3px;" required>
+                                <option value="" selected>Selecione</option>
+                                <option value="Não Verificado">Não Verificado</option>
+                                <option value="Verificado">Verificado</option>
+                                <option value="Em Andamento">Em Andamento</option>
+                            </select>
+                        <button type="submit" class="btn btn-primary">Alterar</button>
+                    </div>
+
+
+                    </div>
+                </form>
             <p><strong>Crachá:</strong> <span th:text="${evento.cracha}"></span></p>
             <p><strong>Cédigo do Evento:</strong>  Evn#<span th:text="${evento.id}"></span></p>
             <p><strong>Evento Relacionado ao Paciente:</strong> <span th:text="${evento.eventRelacPac}"/></p>

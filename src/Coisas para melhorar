@@ -1,7 +1,4 @@
-1. Criar controle de setores
-1.1. Inclusão
-1.2. Update
-
-
-
-- Criar controle de de usuarios (verificar o cadastro)
+- No model de eventos trocar os setores(ambos) de string para a classe Setor @ManytoOne
+- Criar gerenciamento de inclusão e visualização dos setores já cadastrados
+- Criar um text area que a pessoa vai preenchendo e salvando como se fosse um histórico (classe Observação), poderá ser lançada varias observações por evento @OneToMany (Evento --> List<Observações>)
+- Criar log para as alterações

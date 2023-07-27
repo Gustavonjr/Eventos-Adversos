@@ -62,13 +62,17 @@ public class Evento {
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "HH:mm")
     private LocalTime horaResolvidoUpdate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
+    private LocalDate dataClassificacaoUpdate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "HH:mm")
+    private LocalTime horaClassificacaoUpdate;
+
     private String nomePaciente;
     private String numeroAtendimento;
 
-    // Essa variavel nao é populada pelo usuario, somente pelo pessoal da qualidade
-
     @ManyToOne
-    private TipoEvento tipoEvento;
+    private Problema problema;
 
     public long getId() {
         return id;
@@ -212,5 +216,29 @@ public class Evento {
 
     public void setNumeroAtendimento(String numeroAtendimento) {
         this.numeroAtendimento = numeroAtendimento;
+    }
+
+    public Problema getProblema() {
+        return problema;
+    }
+
+    public void setProblema(Problema problema) {
+        this.problema = problema;
+    }
+
+    public LocalDate getDataClassificacaoUpdate() {
+        return dataClassificacaoUpdate;
+    }
+
+    public void setDataClassificacaoUpdate(LocalDate dataClassificacaoUpdate) {
+        this.dataClassificacaoUpdate = dataClassificacaoUpdate;
+    }
+
+    public LocalTime getHoraClassificacaoUpdate() {
+        return horaClassificacaoUpdate;
+    }
+
+    public void setHoraClassificacaoUpdate(LocalTime horaClassificacaoUpdate) {
+        this.horaClassificacaoUpdate = horaClassificacaoUpdate;
     }
 }

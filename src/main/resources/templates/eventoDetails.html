@@ -145,8 +145,8 @@
             <p><strong>Hora:</strong> <span th:text="${evento.hora}"></span></p>
             <p><strong>Data:</strong> <span th:text="${evento.data}"></span></p>
             <p><strong>Turno:</strong> <span th:text="${evento.turno}"></span></p>
-            <p><strong>Setor de Ocorrência:</strong> <span th:text="${evento.setorOcorrencia}"></span></p>
-            <p><strong>Setor Notificante:</strong> <span th:text="${evento.setorNotificante}"></span></p>
+            <p><strong>Setor de Ocorrência:</strong> <span th:text="${evento?.setorOcorrencia?.setor?: ''}"></span></p>
+            <p><strong>Setor Notificante:</strong> <span th:text="${evento?.setorNotificante?.setor?: ''}"></span></p>
             <p><strong>Classificação:</strong> <span th:text="${evento.classificacao}"></span></p>
             <section>
                 <p class="card-text" style="margin-top: 40px;"><span th:utext="${evento.descricaoEvento}"></span></p>

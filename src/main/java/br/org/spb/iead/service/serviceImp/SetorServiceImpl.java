@@ -1,7 +1,7 @@
 package br.org.spb.iead.service.serviceImp;
 
 import br.org.spb.iead.model.Setor;
-import br.org.spb.iead.repository.setorRepository;
+import br.org.spb.iead.repository.SetorRepository;
 import br.org.spb.iead.service.SetorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class setorServiceImpl implements SetorService {
+public class SetorServiceImpl implements SetorService {
 
     @Autowired
-    setorRepository setorRepository;
+    SetorRepository setorRepository;
 
     @Override
     public List<Setor> findAll() {

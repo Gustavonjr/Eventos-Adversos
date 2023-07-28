@@ -2,8 +2,9 @@ package br.org.spb.iead.controller;
 
 import br.org.spb.iead.model.Evento;
 import br.org.spb.iead.model.Problema;
-import br.org.spb.iead.model.RoleModel;
+import br.org.spb.iead.model.Setor;
 import br.org.spb.iead.repository.ProblemaRepository;
+import br.org.spb.iead.repository.SetorRepository;
 import br.org.spb.iead.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,13 +26,16 @@ import java.time.LocalTime;
 import java.util.*;
 
 @Controller
-public class eventoController {
+public class EventoController {
 
     @Autowired
     EventoService eventoService;
 
     @Autowired
     ProblemaRepository problemaRepository;
+
+    @Autowired
+    SetorRepository setorRepository;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -130,11 +134,19 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
     }
 
     @RequestMapping(value ="/novoevento", method = RequestMethod.POST)
-    public String savePost(@Valid Evento evento, BindingResult result, RedirectAttributes attributes){
+    public String savePost(@Valid Evento evento, @RequestParam("setorOcorrencia.setor") String setorOcorrencia,
+                           @RequestParam("setorNotificante.setor") String setorNotificante, BindingResult result, RedirectAttributes attributes){
         if(evento.getNomeColaborador().isBlank()){
             evento.setNomeColaborador("Anonimo");
         }
 
+        Setor setorN = setorRepository.findBySetor(setorNotificante);
+        Setor setorO = setorRepository.findBySetor(setorOcorrencia);
+
+        System.out.println(setorNotificante + setorOcorrencia);
+
+        evento.setSetorNotificante(setorN);
+        evento.setSetorOcorrencia(setorO);
         evento.setResolvido("Não Verificado");
         evento.setDataSys(LocalDate.now());
 
@@ -150,12 +162,9 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
     public String updateEvento(@PathVariable("id") long id,  @RequestParam("problema.problema") String problema ) {
         Evento evento = eventoService.findById(id);
         Problema problema1 = problemaRepository.findByProblema(problema);
-
-        if(!problema.equals(evento.getProblema().getProblema())){
+        evento.setProblema(problema1);
             evento.setDataClassificacaoUpdate(LocalDate.now());
             evento.setHoraClassificacaoUpdate(LocalTime.now());
-            evento.setProblema(problema1);
-        }
 
         evento.setProblema(problema1);
         eventoService.save(evento);
@@ -173,7 +182,7 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
         }
 
         eventoService.save(evento);
-        return "redirect:/eventos/";
+        return "redirect:/eventos/" +id;
     }
 
 
@@ -188,8 +197,8 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
                     "Data do Evento: " + evento.getData() + "\n" +
                     "Hora do Evento: " + evento.getHora() + "\n" +
                     "Turno: " + evento.getTurno() + "\n" +
-                    "Setor de Ocorrência: " + evento.getSetorOcorrencia() + "\n" +
-                    "Setor Notificante: " + evento.getSetorNotificante() + "\n" +
+                    "Setor de Ocorrência: " + evento.getSetorOcorrencia().getSetor() + "\n" +
+                    "Setor Notificante: " + evento.getSetorNotificante().getSetor() + "\n" +
                     "Classificação: " + evento.getClassificacao() + "\n\n" +
                     "Descrição do Evento:\n" +
                     evento.getDescricaoEvento() + "\n\n" +

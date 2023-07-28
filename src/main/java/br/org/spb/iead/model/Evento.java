@@ -1,11 +1,15 @@
 package br.org.spb.iead.model;
 
+import br.org.spb.iead.repository.ObservacaoEventoRepository;
+import br.org.spb.iead.service.serviceImp.ObservacaoEventoServiceImpl;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "TB_EVENTO")
@@ -36,11 +40,11 @@ public class Evento {
     @NotBlank(message = "O texto é obrigatório")
     private String turno;
 
-    @NotBlank(message = "O texto é obrigatório")
-    private String setorOcorrencia;
+    @ManyToOne
+    private Setor setorOcorrencia;
 
-    @NotBlank(message = "O texto é obrigatório")
-    private String setorNotificante;
+    @ManyToOne
+    private Setor setorNotificante;
 
     @NotBlank(message = "O texto é obrigatório")
     private String classificacao;
@@ -74,6 +78,8 @@ public class Evento {
     @ManyToOne
     private Problema problema;
 
+
+    // DAQUI PRA BAIXO É SO METODO ==========================
     public long getId() {
         return id;
     }
@@ -138,21 +144,7 @@ public class Evento {
         this.turno = turno;
     }
 
-    public String getSetorOcorrencia() {
-        return setorOcorrencia;
-    }
 
-    public void setSetorOcorrencia(String setorOcorrencia) {
-        this.setorOcorrencia = setorOcorrencia;
-    }
-
-    public String getSetorNotificante() {
-        return setorNotificante;
-    }
-
-    public void setSetorNotificante(String setorNotificante) {
-        this.setorNotificante = setorNotificante;
-    }
 
     public String getClassificacao() {
         return classificacao;
@@ -240,5 +232,21 @@ public class Evento {
 
     public void setHoraClassificacaoUpdate(LocalTime horaClassificacaoUpdate) {
         this.horaClassificacaoUpdate = horaClassificacaoUpdate;
+    }
+
+    public Setor getSetorOcorrencia() {
+        return setorOcorrencia;
+    }
+
+    public void setSetorOcorrencia(Setor setorOcorrencia) {
+        this.setorOcorrencia = setorOcorrencia;
+    }
+
+    public Setor getSetorNotificante() {
+        return setorNotificante;
+    }
+
+    public void setSetorNotificante(Setor setorNotificante) {
+        this.setorNotificante = setorNotificante;
     }
 }

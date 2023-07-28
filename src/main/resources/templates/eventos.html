@@ -78,6 +78,7 @@ $(document).ready(function() {
             <table id="tabela-eventos" class="table table-striped table-bordered">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>Código</th>
                     <th>Status</th>
                     <th>Setor de Ocorrência</th>
@@ -89,13 +90,16 @@ $(document).ready(function() {
                 <tbody>
                 <tr th:each="evento : ${eventos}">
                     <td>
+                        <a></a>
+                    </td>
+                    <td>
                         <a th:href="@{~/eventos/{id}(id=${evento.id})}" th:text="${evento.id}" style="color: black;"></a>
                     </td>
                     <td>
                         <a th:href="@{~/eventos/{id}(id=${evento.id})}" th:text="${evento.resolvido}" th:class="${evento.resolvido == 'Verificado'} ? 'text-success' : (${evento.resolvido == 'Não Verificado'} ? 'text-danger' : 'text-warning')"></a>
                     </td>
                     <td>
-                        <a th:href="@{~/eventos/{id}(id=${evento.id})}" th:text="${evento.setorOcorrencia}"  style="color: black;"></a>
+                        <a th:href="@{~/eventos/{id}(id=${evento.id})}" th:text="${evento?.setorOcorrencia?.setor?: ''}"  style="color: black;"></a>
                     </td>
                     <td>
                         <span th:text="${evento.data}"></span>

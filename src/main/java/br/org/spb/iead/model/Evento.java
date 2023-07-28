@@ -78,6 +78,9 @@ public class Evento {
     @ManyToOne
     private Problema problema;
 
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
+    private List<ObservacaoEvento> observacao;
+
 
     // DAQUI PRA BAIXO É SO METODO ==========================
     public long getId() {
@@ -248,5 +251,9 @@ public class Evento {
 
     public void setSetorNotificante(Setor setorNotificante) {
         this.setorNotificante = setorNotificante;
+    }
+
+    public List<ObservacaoEvento> getObservacao() {
+        return observacao;
     }
 }

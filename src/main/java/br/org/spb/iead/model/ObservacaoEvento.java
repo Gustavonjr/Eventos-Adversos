@@ -1,6 +1,8 @@
 package br.org.spb.iead.model;
 
+import br.org.spb.iead.repository.ObservacaoEventoRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -8,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TB_OBSERVACAO")
 public class ObservacaoEvento {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +20,7 @@ public class ObservacaoEvento {
 
     @ManyToOne
     @JsonIgnore
+    @JoinColumn(name = "evento_id")
     private Evento evento;
 
     private LocalDateTime dataObservacao;
@@ -52,4 +56,6 @@ public class ObservacaoEvento {
     public void setDataObservacao(LocalDateTime dataObservacao) {
         this.dataObservacao = dataObservacao;
     }
+
+
 }

@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control" name="cracha" placeholder="Crachá:">
+                    <input type="text" class="form-control" name="cracha" placeholder="Crachá (Somente numeros):" pattern="[0-9]+" title="Por favor, insira apenas números.">
                 </div>
 
 
@@ -171,12 +171,12 @@
 
                 <div class="form-group">
                     <label for="descricaoEvento">Descrição do Evento</label>
-                    <textarea class="form-control" id="descricaoEvento" name="descricaoEvento" rows="3" required></textarea>
+                    <textarea class="form-control" id="descricaoEvento" placeholder="Descreva detalhadamente o evento:" name="descricaoEvento" rows="3" required></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="acaoImediata">Ação imediata</label>
-                    <textarea class="form-control" id="acaoImediata" name="acaoImediata" rows="3" required></textarea>
+                    <textarea class="form-control" id="acaoImediata" placeholder="Digite a ação que você tomou ao presenciar o evento:" name="acaoImediata" rows="3" required></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Enviar</button>

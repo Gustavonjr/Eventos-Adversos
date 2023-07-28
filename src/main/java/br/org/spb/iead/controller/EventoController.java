@@ -81,6 +81,13 @@ public class EventoController {
         return ResponseEntity.ok().body(eventos);
     }
 
+    @RequestMapping(value = "/eventosJs/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Evento> getEventoJsId(@PathVariable("id") long id){
+        Evento evento = eventoService.findById(id);
+        return new ResponseEntity<>(evento, HttpStatus.OK);
+    }
+
 @RequestMapping(value = "/resolvidos", method = RequestMethod.GET)
 public ResponseEntity<Map<String, Integer>> getResolvidos() {
     List<Evento> eventos = eventoService.findAll();
@@ -168,7 +175,7 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
 
         evento.setProblema(problema1);
         eventoService.save(evento);
-        return "redirect:/eventos/";
+        return "redirect:/eventos/" +id;
     }
 
     @RequestMapping(value = "/eventos/{id}/updateR", method = RequestMethod.POST)

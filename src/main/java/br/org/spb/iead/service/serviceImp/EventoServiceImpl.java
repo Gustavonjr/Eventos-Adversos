@@ -2,6 +2,7 @@ package br.org.spb.iead.service.serviceImp;
 
 import br.org.spb.iead.model.Evento;
 import br.org.spb.iead.repository.EventoRepository;
+import br.org.spb.iead.repository.ObservacaoEventoRepository;
 import br.org.spb.iead.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,7 @@ public class EventoServiceImpl implements EventoService {
     public Evento save(Evento evento) {
         return ieadRep.save(evento);
     }
+
+
 
 }

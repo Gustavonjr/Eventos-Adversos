@@ -154,6 +154,23 @@
             <section>
                 <p class="card-text" style="margin-top: 40px;"><strong>Ação Imediata:</strong> <span th:utext="${evento.acaoImediata}"></span></p>
             </section>
+
+            <form th:action="@{'/observacao/' + ${evento.id}}" method="post">
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Example textarea</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="observacao" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+
+            <div class="card shadow-sm bg-white rounded" id="observacoes" th:each="obs : ${evento.observacao}">
+                <div class="card-body">
+                    <p class="card-text" th:text="${obs.observacao}"></p>
+                    <!-- Exibir a data da observação, se estiver disponível -->
+                    <p th:if="${obs.dataObservacao}" th:text="'Data da Observação: ' + ${obs.dataObservacao}"></p>
+                </div>
+            </div>
+
         </article>
 
 

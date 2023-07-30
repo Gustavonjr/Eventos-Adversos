@@ -1,9 +1,7 @@
 - Colocar um alerta ao enviar o formulario, ele devera voltar para o endpoint /novoevento ao termino do envio
 - Ter um campo check box se teve custos ou não
 - Custo estimado > campo de txto
-- Colocar um botão para enviar e-mail para, esse email terar um parametro chamado destinatario, após preenhce e enviar irá enviar o evento completo
 - Criar gerenciamento de inclusão e visualização dos setores já cadastrados
-- Criar um text area que a pessoa vai preenchendo e salvando como se fosse um histórico (classe Observação), poderá ser lançada varias observações por evento @OneToMany (Evento --> List<Observações>)
 - Criar log para as alterações
 
 

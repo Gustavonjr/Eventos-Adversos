@@ -53,19 +53,31 @@
 <body>
 
 <header>
-    <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1" style="font-weight: bold;">HBPS</span>
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/"><span class="navbar-brand mb-0 h1" style="font-weight: bold;" th:text="${config.nomeSite}">HBPS</span></a>
         <div class="ml-auto">
             <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento</a>
             <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
+            <a href="/config" class="btn btn-secondary" role="button">Configurações</a>
         </div>
     </nav>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="/config">Configurações</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/usuarios">Usuarios</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/setoresConfig">Setores</a>
+        </li>
+    </ul>
 </header>
 
 <section>
 
     <div class="container" style="padding-top: 35px;">
-        <form action="/usuariosForm" method="post">
+        <form action="/usuarios" method="post">
             <div class="form-group">
                 <input type="text" class="form-control" name="username" placeholder="Username" required>
             </div>

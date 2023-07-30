@@ -52,9 +52,13 @@
 <body>
 
 <header>
-    <nav class="navbar navbar-light bg-light">
-        <a href="/"><span class="navbar-brand mb-0 h1" style="font-weight: bold;">HBPS</span></a>
-        <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/"><span class="navbar-brand mb-0 h1" style="font-weight: bold;" th:text="${config.nomeSite}">HBPS</span></a>
+        <div class="ml-auto">
+            <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento</a>
+            <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
+            <a href="/config" class="btn btn-secondary" role="button">Configurações</a>
+        </div>
     </nav>
 </header>
 

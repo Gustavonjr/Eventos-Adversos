@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Inicio</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/"><span class="navbar-brand mb-0 h1" style="font-weight: bold;" th:text="${config.nomeSite}">HBPS</span></a>
+        <div class="ml-auto">
+            <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento</a>
+            <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
+            <a href="/config" class="btn btn-secondary" role="button">Configurações</a>
+        </div>
+    </nav>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="/config">Configurações</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/usuarios">Usuarios</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/setoresConfig">Setores</a>
+        </li>
+    </ul>
+
+</header>
+
+
+
+</body>
+
+<section>
+<div class="container" style="margin-top: 20px;">
+    <form action="/config" method="post" enctype="multipart/form-data">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Nome do Site:</span>
+            </div>
+            <input type="text" class="form-control" id="nomeSite" placeholder="Nome do site" name="nomeSite" th:value="${config.nomeSite}">
+            </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Host do Email:</span>
+            </div>
+            <input type="text" class="form-control" id="hostEmail" placeholder="Host utilizado para envio do e-mail" name="hostEmail" th:value="${config.hostEmail}" required>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Porta do e-mail:</span>
+            </div>
+            <input type="text" class="form-control" id="portaEmail" placeholder="Porta do E-mail" name="portaEmail" th:value="${config.portaEmail}" required>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">E-mail da Instituição:</span>
+            </div>
+            <input type="text" class="form-control" id="usuarioEmail" placeholder="E-mail da instituição" name="usuarioEmail" th:value="${config.usuarioEmail}" required>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Senha:</span>
+            </div>
+            <input type="text" class="form-control" id="senhaEmail" placeholder="Senha de conexão com o APP, não é a senha do e-mail." name="senhaEmail" th:value="${config.senhaEmail}" required>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Destinatario Padrão:</span>
+            </div>
+            <input type="text" class="form-control" id="destinatariEmail" placeholder="Para quem vai esse e-mail" name="destinatariEmail" th:value="${config.destinatariEmail}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+
+    </form>
+</div>
+
+</section>
+
+</html>

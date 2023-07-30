@@ -25,8 +25,48 @@
       <a href="/config" class="btn btn-secondary" role="button">Configurações</a>
     </div>
   </nav>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" href="/config">Configurações</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/usuarios">Usuarios</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="/setoresConfig">Setores</a>
+    </li>
+  </ul>
 </header>
 
+<div class="container" style="margin-top: 20px;">
+
+  <form action="/setoresConfig" method="post" style="margin-left: auto; margin-right: auto; padding-top: 20px;">
+
+    <div class="input-group mb-0">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="setor" ><span>Nome do setor: </span></label>
+      </div>
+      <input type="text" disabled class="form-control" id="setor" placeholder="Nome do novo setor" style="margin-right: 5px;" name="setor" required>
+      <button type="submit" disabled class="btn btn-primary">Salvar</button>
+    </div>
+  </form>
+
+  <table class="table table-bordered" style="margin-top: 20px;">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Setor</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- O loop abaixo irá iterar pelos dados passados na model and view -->
+    <tr th:each="setores : ${setores}">
+      <td th:text="${setores.id}"></td>
+      <td th:text="${setores.setor}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 
 
 </body>

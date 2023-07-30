@@ -63,11 +63,12 @@
 <body>
 
 <header>
-    <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1" style="font-weight: bold;">HBPS</span>
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/"><span class="navbar-brand mb-0 h1" style="font-weight: bold;" th:text="${config.nomeSite}">HBPS</span></a>
         <div class="ml-auto">
             <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento</a>
             <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
+            <a href="/config" class="btn btn-secondary" role="button">Configurações</a>
         </div>
     </nav>
 </header>
@@ -120,7 +121,6 @@
 
                         <form th:action="@{'/eventos/' + ${evento.id} + '/updateR'}" method="post" style="margin-left: auto; margin-right: auto;">
                             <div style="text-align: right;">
-
                     <div class="input-group mb-3" style="padding-top: 5px;">
                         <div class="input-group-prepend">
                                 <label class="input-group-text" for="inlineFormCustomSelect"><span>Status: <span th:text="${evento.resolvido}"></span></span></label>
@@ -149,21 +149,28 @@
             <p><strong>Setor Notificante:</strong> <span th:text="${evento?.setorNotificante?.setor?: ''}"></span></p>
             <p><strong>Classificação:</strong> <span th:text="${evento.classificacao}"></span></p>
             <section>
-                <p class="card-text" style="margin-top: 40px;"><span th:utext="${evento.descricaoEvento}"></span></p>
+                <p class="card-text" style="margin-top: 40px;"><strong>Descrição do Evento:</strong> <span th:utext="${evento.descricaoEvento}"></span></p>
             </section>
             <section>
                 <p class="card-text" style="margin-top: 40px;"><strong>Ação Imediata:</strong> <span th:utext="${evento.acaoImediata}"></span></p>
             </section>
 
+
+            <h4 style="text-align: center; margin-top: 50px;"> Observações do Evento </h4>
+
             <form th:action="@{'/observacao/' + ${evento.id}}" method="post">
+
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Example textarea</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" name="observacao" rows="3" required></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="observacao" placeholder="Observações sobre o pedido" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                <div style="display: flex; justify-content: flex-end;">
+                    <!-- Seu conteúdo aqui -->
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+
             </form>
 
-            <div class="card shadow-sm bg-white rounded" id="observacoes" th:each="obs : ${evento.observacao}">
+            <div class="card shadow-sm bg-white rounded" id="observacoes" th:each="obs : ${evento.observacao}" style="margin-top: 15px;">
                 <div class="card-body">
                     <p class="card-text" th:text="${obs.observacao}"></p>
                     <!-- Exibir a data da observação, se estiver disponível -->
@@ -171,9 +178,17 @@
                 </div>
             </div>
 
+            <form th:action="@{'/eventos/' + ${evento.id} + '/enviarPara'}" method="post" style="margin-left: auto; margin-right: auto; padding-top: 20px;">
+                <div class="input-group mb-0">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="problema" ><span>Destinatario: </span></label>
+                    </div>
+                    <input type="text" class="form-control" id="destinatario" placeholder="Enviar e-mail para" style="margin-right: 5px;" name="enviarPara">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+
         </article>
-
-
 
     </div>
 </section>

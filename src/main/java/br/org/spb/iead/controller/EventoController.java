@@ -1,11 +1,15 @@
 package br.org.spb.iead.controller;
 
+import br.org.spb.iead.model.Config;
 import br.org.spb.iead.model.Evento;
 import br.org.spb.iead.model.Problema;
 import br.org.spb.iead.model.Setor;
 import br.org.spb.iead.repository.ProblemaRepository;
 import br.org.spb.iead.repository.SetorRepository;
+import br.org.spb.iead.service.ConfigService;
 import br.org.spb.iead.service.EventoService;
+import br.org.spb.iead.util.EnviarEmail;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -26,36 +30,18 @@ import java.time.LocalTime;
 import java.util.*;
 
 @Controller
+@AllArgsConstructor
 public class EventoController {
 
-    @Autowired
     EventoService eventoService;
 
-    @Autowired
     ProblemaRepository problemaRepository;
 
-    @Autowired
     SetorRepository setorRepository;
 
-    @Autowired
-    private JavaMailSender mailSender;
+    ConfigService configService;
 
-    // Configurações do servidor de e-mail obtidas do application.properties
-    @Value("${spring.mail.host}")
-    private String host;
-
-    @Value("${spring.mail.port}")
-    private int porta;
-
-    @Value("${spring.mail.username}")
-    private String usuario;
-
-    @Value("${spring.mail.password}")
-    private String senha;
-
-    // Configuração do e-mail de destino obtida do application.properties
-    @Value("${destinatario.email}")
-    private String destinatario;
+    EnviarEmail email;
 
 
     @RequestMapping(value = "/eventos",method = RequestMethod.GET)
@@ -64,6 +50,9 @@ public class EventoController {
         List<Evento> eventos = eventoService.findAll();
         eventos.sort(Comparator.comparing(Evento::getId, Comparator.reverseOrder()));
         mv.addObject("eventos",eventos);
+
+        Config config = configService.findById(1);
+        mv.addObject("config", config);
         System.out.println("/eventos acessado");
         return mv;
     }
@@ -126,6 +115,8 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
         ModelAndView mv = new ModelAndView("eventoDetails");
         Evento evento = eventoService.findById(id);
         mv.addObject("evento", evento);
+        Config config = configService.findById(1);
+        mv.addObject("config", config);
         System.out.println("/eventos/id acessado");
         return mv;
     }
@@ -136,8 +127,11 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
         return "gerenciarEventos";
     }
     @RequestMapping(value = "/novoevento", method = RequestMethod.GET)
-    public String getEventoForm(){
-        return "eventoForm";
+    public ModelAndView getEventoForm(){
+        ModelAndView mv = new ModelAndView("eventoForm");
+        Config config = configService.findById(1);
+        mv.addObject("config", config);
+        return mv;
     }
 
     @RequestMapping(value ="/novoevento", method = RequestMethod.POST)
@@ -159,10 +153,16 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
 
         eventoService.save(evento);
 
-        // Enviar e-mail com os dados do evento
-        enviarEmail(evento);
-
+        email.enviarEmail(evento,"");
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/eventos/{id}/enviarPara", method = RequestMethod.POST)
+    public String enviarEmailPara(@PathVariable("id") long id, @RequestParam("enviarPara") String destinatario ){
+        Evento evento = eventoService.findById(id);
+
+        email.enviarEmail(evento, destinatario);
+        return "redirect:/eventos/" +id;
     }
 
     @RequestMapping(value = "/eventos/{id}/update", method = RequestMethod.POST)
@@ -187,50 +187,7 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
             evento.setHoraResolvidoUpdate(LocalTime.now());
             evento.setResolvido(resolvido);
         }
-
         eventoService.save(evento);
         return "redirect:/eventos/" +id;
-    }
-
-
-    private void enviarEmail(Evento evento) {
-        try {
-            // Configurar os detalhes do e-mail
-            String assunto = "Novo evento criado - Evn#" + evento.getId();
-            String corpo = "Prezado(a) usuário,\n\n" +
-                    "Um novo evento foi criado em nosso sistema. Seguem abaixo os detalhes do evento:\n\n" +
-                    "Informações do Evento:\n" +
-                    "Nome do Colaborador: " + evento.getNomeColaborador() + "\n" +
-                    "Data do Evento: " + evento.getData() + "\n" +
-                    "Hora do Evento: " + evento.getHora() + "\n" +
-                    "Turno: " + evento.getTurno() + "\n" +
-                    "Setor de Ocorrência: " + evento.getSetorOcorrencia().getSetor() + "\n" +
-                    "Setor Notificante: " + evento.getSetorNotificante().getSetor() + "\n" +
-                    "Classificação: " + evento.getClassificacao() + "\n\n" +
-                    "Descrição do Evento:\n" +
-                    evento.getDescricaoEvento() + "\n\n" +
-                    "Ação Imediata:\n" +
-                    evento.getAcaoImediata() + "\n\n" +
-                    "Status do Evento: " + evento.getResolvido() + "\n";
-
-            // Adicione outros detalhes que você deseja incluir no e-mail
-
-            corpo += "\nAtenciosamente,\nEquipe de Informatica";
-
-
-            // Criar o objeto de e-mail
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(destinatario);
-            helper.setSubject(assunto);
-            helper.setText(corpo);
-
-            // Enviar o e-mail
-            mailSender.send(message);
-
-            System.out.println("E-mail enviado com sucesso!");
-        } catch (MessagingException e) {
-            System.out.println("Erro ao enviar e-mail: " + e.getMessage());
-        }
     }
     }

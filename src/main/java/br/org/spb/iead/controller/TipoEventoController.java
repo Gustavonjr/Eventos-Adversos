@@ -1,7 +1,5 @@
 package br.org.spb.iead.controller;
 
-import br.org.spb.iead.model.Processo;
-import br.org.spb.iead.model.Setor;
 import br.org.spb.iead.model.TipoEvento;
 import br.org.spb.iead.service.TipoEventoService;
 import org.springframework.beans.factory.annotation.Autowired;

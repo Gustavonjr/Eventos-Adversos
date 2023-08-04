@@ -12,6 +12,10 @@ public class ConfigServiceImpl implements ConfigService {
     @Autowired
     ConfigRepository configRepository;
 
+    public ConfigServiceImpl(){
+
+    }
+
     @Override
     public Config findById(long id) {
         return configRepository.findById(id).get();

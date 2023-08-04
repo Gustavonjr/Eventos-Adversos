@@ -4,6 +4,7 @@ import br.org.spb.iead.model.Config;
 import br.org.spb.iead.model.Evento;
 import br.org.spb.iead.model.ObservacaoEvento;
 import br.org.spb.iead.repository.ConfigRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
+@Lazy
 public class EnviarEmail {
 
 

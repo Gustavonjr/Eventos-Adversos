@@ -3,27 +3,22 @@ package br.org.spb.iead.controller;
 import br.org.spb.iead.model.Config;
 import br.org.spb.iead.model.Evento;
 import br.org.spb.iead.model.Problema;
-import br.org.spb.iead.model.Setor;
+import br.org.spb.iead.model.SetorModel;
 import br.org.spb.iead.repository.ProblemaRepository;
 import br.org.spb.iead.repository.SetorRepository;
 import br.org.spb.iead.service.ConfigService;
 import br.org.spb.iead.service.EventoService;
 import br.org.spb.iead.util.EnviarEmail;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -31,6 +26,7 @@ import java.util.*;
 
 @Controller
 @AllArgsConstructor
+@Lazy
 public class EventoController {
 
     EventoService eventoService;
@@ -123,8 +119,12 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
 
 
     @RequestMapping(value = "/gerenciar", method = RequestMethod.GET)
-    public String getGerentiar(){
-        return "gerenciarEventos";
+    public ModelAndView getGerentiar(){
+        ModelAndView mv = new ModelAndView("gerenciarEventos");
+        Config config = configService.findById(1);
+        mv.addObject("config", config);
+
+        return mv;
     }
     @RequestMapping(value = "/novoevento", method = RequestMethod.GET)
     public ModelAndView getEventoForm(){
@@ -141,8 +141,8 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
             evento.setNomeColaborador("Anonimo");
         }
 
-        Setor setorN = setorRepository.findBySetor(setorNotificante);
-        Setor setorO = setorRepository.findBySetor(setorOcorrencia);
+        SetorModel setorN = setorRepository.findBySetor(setorNotificante);
+        SetorModel setorO = setorRepository.findBySetor(setorOcorrencia);
 
         System.out.println(setorNotificante + setorOcorrencia);
 

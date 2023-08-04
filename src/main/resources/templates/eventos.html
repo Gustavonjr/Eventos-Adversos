@@ -61,6 +61,16 @@ $(document).ready(function() {
             <a href="/config" class="btn btn-secondary" role="button">Configurações</a>
         </div>
     </nav>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="/eventos">Eventos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciar">Gerenciar</a>
+        </li>
+    </ul>
+
 </header>
 
 <section>
@@ -74,9 +84,6 @@ $(document).ready(function() {
         </nav>
         <!-- Botão para baixar CSV -->
         <button id="btnDownload" class="btn btn-primary">Baixar Planilha CSV</button>
-
-        <!-- Botão para os graficos -->
-        <a href="/gerenciar" class="btn btn-secondary" role="button">Gerenciar</a>
 
         <div class="table-responsive" STYLE="margin-top: 20px;">
             <table id="tabela-eventos" class="table table-striped table-bordered">

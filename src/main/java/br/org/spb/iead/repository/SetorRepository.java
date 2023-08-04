@@ -1,10 +1,10 @@
 package br.org.spb.iead.repository;
 
-import br.org.spb.iead.model.Setor;
+import br.org.spb.iead.model.SetorModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SetorRepository extends JpaRepository<Setor, Long> {
+public interface SetorRepository extends JpaRepository<SetorModel, Long> {
 
-    Setor findBySetor(String setor);
+    SetorModel findBySetor(String nome);
 
 }

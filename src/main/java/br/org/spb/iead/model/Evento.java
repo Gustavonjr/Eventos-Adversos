@@ -1,9 +1,6 @@
 package br.org.spb.iead.model;
 
-import br.org.spb.iead.repository.ObservacaoEventoRepository;
-import br.org.spb.iead.service.serviceImp.ObservacaoEventoServiceImpl;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,7 +14,7 @@ public class Evento {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private Integer cracha;
@@ -41,10 +38,10 @@ public class Evento {
     private String turno;
 
     @ManyToOne
-    private Setor setorOcorrencia;
+    private SetorModel setorOcorrencia;
 
     @ManyToOne
-    private Setor setorNotificante;
+    private SetorModel setorNotificante;
 
     @NotBlank(message = "O texto é obrigatório")
     private String classificacao;
@@ -237,19 +234,19 @@ public class Evento {
         this.horaClassificacaoUpdate = horaClassificacaoUpdate;
     }
 
-    public Setor getSetorOcorrencia() {
+    public SetorModel getSetorOcorrencia() {
         return setorOcorrencia;
     }
 
-    public void setSetorOcorrencia(Setor setorOcorrencia) {
+    public void setSetorOcorrencia(SetorModel setorOcorrencia) {
         this.setorOcorrencia = setorOcorrencia;
     }
 
-    public Setor getSetorNotificante() {
+    public SetorModel getSetorNotificante() {
         return setorNotificante;
     }
 
-    public void setSetorNotificante(Setor setorNotificante) {
+    public void setSetorNotificante(SetorModel setorNotificante) {
         this.setorNotificante = setorNotificante;
     }
 

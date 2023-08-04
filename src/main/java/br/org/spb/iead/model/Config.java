@@ -27,6 +27,18 @@ public class Config {
     private String senhaEmail;
     private String destinatariEmail;
 
+    public Config(){
+
+    }
+    public Config(String nomeSite, String hostEmail, int portaEmail, String usuarioEmail, String senhaEmail, String destinatariEmail) {
+        this.nomeSite = nomeSite;
+        this.hostEmail = hostEmail;
+        this.portaEmail = portaEmail;
+        this.usuarioEmail = usuarioEmail;
+        this.senhaEmail = senhaEmail;
+        this.destinatariEmail = destinatariEmail;
+    }
+
     public long getId() {
         return id;
     }

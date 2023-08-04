@@ -1,12 +1,12 @@
 package br.org.spb.iead.service;
 
-import br.org.spb.iead.model.Setor;
+import br.org.spb.iead.model.SetorModel;
 import java.util.List;
 
 public interface SetorService {
 
-    List<Setor> findAll();
-    Setor findById(long id);
-    Setor save(Setor evento);
+    List<SetorModel> findAll();
+    SetorModel findById(long id);
+    SetorModel save(SetorModel s);
 
 }

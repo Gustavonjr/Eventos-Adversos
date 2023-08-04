@@ -1,6 +1,6 @@
 package br.org.spb.iead.service.serviceImp;
 
-import br.org.spb.iead.model.Setor;
+import br.org.spb.iead.model.SetorModel;
 import br.org.spb.iead.repository.SetorRepository;
 import br.org.spb.iead.service.SetorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +15,17 @@ public class SetorServiceImpl implements SetorService {
     SetorRepository setorRepository;
 
     @Override
-    public List<Setor> findAll() {
+    public List<SetorModel> findAll() {
         return setorRepository.findAll();
     }
 
     @Override
-    public Setor findById(long id) {
+    public SetorModel findById(long id) {
         return setorRepository.findById(id).get();
     }
 
     @Override
-    public Setor save(Setor setor) {
+    public SetorModel save(SetorModel setor) {
         return setorRepository.save(setor);
     }
 }

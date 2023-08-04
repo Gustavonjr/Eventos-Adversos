@@ -1,8 +1,0 @@
-- Colocar um alerta ao enviar o formulario, ele devera voltar para o endpoint /novoevento ao termino do envio
-- Ter um campo check box se teve custos ou não
-- Custo estimado > campo de txto
-- Criar gerenciamento de inclusão e visualização dos setores já cadastrados
-- Criar log para as alterações
-
-
-- Criar uma classe de configurações, essa casse irá ter o nome do site, titulo, configurações etc assim é possivel vender esse sistema

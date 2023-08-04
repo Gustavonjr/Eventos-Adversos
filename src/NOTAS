@@ -1,0 +1,28 @@
+Ideias:
+- Criar controle de inclusão de tipos de eventos
+- Criar controle de inclusão de processos
+- Criar controle de inclusão de problemas
+- Colocar um alerta ao enviar o formulario, ele devera voltar para o endpoint /novoevento ao termino do envio
+- Ter um campo check box se teve custos ou não
+- Ao enviar o email aparecer um alerta falando que foi enviado
+- Criar log para as alterações
+
+
+SCRIPTS PARA UMA BASE NOVA:
+
+1. CONFIGURAÇÕES INICIAIS
+INSERT INTO `test`.`tb_config` (`destinatari_email`, `host_email`, `nome_site`, `porta_email`, `senha_email`, `usuario_email`) VALUES ('animation.studio31@gmail.com', 'smtp.gmail.com', 'Bene', '587', 'oawuaxhcjupbznuy', 'testparaprogramas5@gmail.com');
+
+1.1. USUARIO INICIAL(ADMIN / 14047)
+INSERT INTO `test`.`tb_user` (`password`, `username`, `role_model_roleid`) VALUES ('$2a$10$LMzWB1C4ILraKDJY1gIpP.jo.NW5.ocyKOE2YBN4gpQmlQQcWhkgi', 'admin', '1');
+
+
+1.2. ROLES INICIAIS
+INSERT INTO `test`.`tb_role` (`role_name`) VALUES ('ROLE_ADMIN');
+INSERT INTO `test`.`tb_role` (`role_name`) VALUES ('ROLE_USER');
+INSERT INTO `test`.`tb_role` (`role_name`) VALUES ('ROLE_QUALIDADE');
+
+2. Acessando a aplicação via web cadastre os setores com o usuario admin
+3. Cadastrar tipos de eventos
+4. Cadastrar processos
+5. Cadastrar problemas

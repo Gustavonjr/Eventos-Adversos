@@ -1,11 +1,11 @@
-package br.org.spb.iead.model;
+package br.org.spb.iead.model.eventos;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "TB_TIPO_EVENTO")
-public class TipoEvento {
+public class TipoEventoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,10 +14,10 @@ public class TipoEvento {
     @NotBlank
     private String tipoEvento;
 
-    public TipoEvento(){
+    public TipoEventoModel(){
 
     }
-    public TipoEvento(String tipoEvento) {
+    public TipoEventoModel(String tipoEvento) {
         this.tipoEvento = tipoEvento;
     }
 

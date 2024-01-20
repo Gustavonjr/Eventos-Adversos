@@ -1,6 +1,6 @@
 package br.org.spb.iead.service.serviceImp;
 
-import br.org.spb.iead.model.ObservacaoEvento;
+import br.org.spb.iead.model.eventos.ObservacaoEvento;
 import br.org.spb.iead.repository.ObservacaoEventoRepository;
 import br.org.spb.iead.service.ObservacaoEventoService;
 import org.springframework.beans.factory.annotation.Autowired;

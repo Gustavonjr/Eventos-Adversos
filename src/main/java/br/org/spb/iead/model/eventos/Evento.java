@@ -1,5 +1,6 @@
-package br.org.spb.iead.model;
+package br.org.spb.iead.model.eventos;
 
+import br.org.spb.iead.model.SetorModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -73,7 +74,7 @@ public class Evento {
     private String numeroAtendimento;
 
     @ManyToOne
-    private Problema problema;
+    private ProblemaModel problema;
 
     @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
     private List<ObservacaoEvento> observacao;
@@ -210,11 +211,11 @@ public class Evento {
         this.numeroAtendimento = numeroAtendimento;
     }
 
-    public Problema getProblema() {
+    public ProblemaModel getProblema() {
         return problema;
     }
 
-    public void setProblema(Problema problema) {
+    public void setProblema(ProblemaModel problema) {
         this.problema = problema;
     }
 

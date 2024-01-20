@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Inicio</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/"><span class="navbar-brand mb-0 h1" style="font-weight: bold;" th:text="${config.nomeSite}">HBPS</span></a>
+        <div class="ml-auto">
+            <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento</a>
+            <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
+            <a href="/config" class="btn btn-secondary" role="button">Configurações</a>
+        </div>
+    </nav>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link " href="/config">Configurações</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/usuarios">Usuarios</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/setoresConfig">Setores</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/eventosConfig">Tipos de Eventos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/processoConfig">Processos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/problemaConfig">Problemas</a>
+        </li>
+    </ul>
+
+</header>
+<div class="container" style="margin-top: 20px;">
+<form action="/novotipoevento" method="post" style="margin-left: auto; margin-right: auto; padding-top: 20px;">
+
+    <div class="input-group mb-0">
+        <div class="input-group-prepend">
+            <label class="input-group-text" ><span>Tipo do Evento: </span></label>
+        </div>
+        <input type="text" class="form-control"placeholder="Nome do novo tipo de evento" style="margin-right: 5px;" name="tipoEvento" required>
+        <button type="submit"  class="btn btn-primary">Salvar</button>
+    </div>
+</form>
+
+<table class="table table-bordered" style="margin-top: 20px;">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tipo Evento</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- O loop abaixo irá iterar pelos dados passados na model and view -->
+    <tr th:each="tiposEventos : ${tiposEventos}">
+        <td th:text="${tiposEventos.id}"></td>
+        <td th:text="${tiposEventos.tipoEvento}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

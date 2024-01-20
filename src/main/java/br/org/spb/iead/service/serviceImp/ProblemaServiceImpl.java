@@ -1,6 +1,6 @@
 package br.org.spb.iead.service.serviceImp;
 
-import br.org.spb.iead.model.Problema;
+import br.org.spb.iead.model.eventos.ProblemaModel;
 import br.org.spb.iead.repository.ProblemaRepository;
 import br.org.spb.iead.service.ProblemaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +16,17 @@ public class ProblemaServiceImpl implements ProblemaService {
     ProblemaRepository problemaRepository;
 
     @Override
-    public List<Problema> findAll() {
+    public List<ProblemaModel> findAll() {
         return problemaRepository.findAll();
     }
 
     @Override
-    public Problema findById(long id) {
+    public ProblemaModel findById(long id) {
         return problemaRepository.findById(id).get();
     }
 
     @Override
-    public Problema save(Problema problema) {
+    public ProblemaModel save(ProblemaModel problema) {
         return problemaRepository.save(problema);
     }
 }

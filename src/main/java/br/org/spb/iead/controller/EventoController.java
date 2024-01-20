@@ -1,8 +1,8 @@
 package br.org.spb.iead.controller;
 
 import br.org.spb.iead.model.Config;
-import br.org.spb.iead.model.Evento;
-import br.org.spb.iead.model.Problema;
+import br.org.spb.iead.model.eventos.Evento;
+import br.org.spb.iead.model.eventos.ProblemaModel;
 import br.org.spb.iead.model.SetorModel;
 import br.org.spb.iead.repository.ProblemaRepository;
 import br.org.spb.iead.repository.SetorRepository;
@@ -168,7 +168,7 @@ public ResponseEntity<Map<String, Integer>> getResolvidos() {
     @RequestMapping(value = "/eventos/{id}/update", method = RequestMethod.POST)
     public String updateEvento(@PathVariable("id") long id,  @RequestParam("problema.problema") String problema ) {
         Evento evento = eventoService.findById(id);
-        Problema problema1 = problemaRepository.findByProblema(problema);
+        ProblemaModel problema1 = problemaRepository.findByProblema(problema);
         evento.setProblema(problema1);
             evento.setDataClassificacaoUpdate(LocalDate.now());
             evento.setHoraClassificacaoUpdate(LocalTime.now());

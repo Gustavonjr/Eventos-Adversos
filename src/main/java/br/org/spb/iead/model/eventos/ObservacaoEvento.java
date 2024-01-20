@@ -1,8 +1,6 @@
-package br.org.spb.iead.model;
+package br.org.spb.iead.model.eventos;
 
-import br.org.spb.iead.repository.ObservacaoEventoRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

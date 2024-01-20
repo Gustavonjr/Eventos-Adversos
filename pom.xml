@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.org.spb</groupId>
-	<artifactId>iead</artifactId>
+	<artifactId>SA</artifactId>
 	<version>0.1.1-SNAPSHOT</version>
 	<name>Incidentes e eventos Adversos</name>
 	<description>Projeto para a notificação de eventos adversos.</description>

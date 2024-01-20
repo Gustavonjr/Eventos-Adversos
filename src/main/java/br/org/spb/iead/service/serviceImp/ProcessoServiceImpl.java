@@ -1,6 +1,6 @@
 package br.org.spb.iead.service.serviceImp;
 
-import br.org.spb.iead.model.Processo;
+import br.org.spb.iead.model.eventos.ProcessoModel;
 import br.org.spb.iead.repository.ProcessoRepository;
 import br.org.spb.iead.service.ProcessoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +16,22 @@ public class ProcessoServiceImpl implements ProcessoService {
     ProcessoRepository processoRepository;
 
     @Override
-    public List<Processo> findAll() {
+    public List<ProcessoModel> findAll() {
         return processoRepository.findAll();
     }
 
     @Override
-    public Processo findByID(long id) {
+    public ProcessoModel findByID(long id) {
         return processoRepository.findById(id).get();
     }
 
     @Override
-    public Processo save(Processo processo) {
+    public ProcessoModel save(ProcessoModel processo) {
         return processoRepository.save(processo);
     }
 
     @Override
-    public Processo findByProcesso(String processo) {
+    public ProcessoModel findByProcesso(String processo) {
         return processoRepository.findByProcesso(processo);
     }
 }

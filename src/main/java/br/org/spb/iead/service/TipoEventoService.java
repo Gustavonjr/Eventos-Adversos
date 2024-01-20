@@ -1,15 +1,15 @@
 package br.org.spb.iead.service;
 
 
-import br.org.spb.iead.model.TipoEvento;
+import br.org.spb.iead.model.eventos.TipoEventoModel;
 
 import java.util.List;
 
 public interface TipoEventoService {
 
-    List<TipoEvento> findAll();
-    TipoEvento findById(long id);
-    TipoEvento save(TipoEvento tipoEvento);
+    List<TipoEventoModel> findAll();
+    TipoEventoModel findById(long id);
+    TipoEventoModel save(TipoEventoModel tipoEvento);
 
-    TipoEvento findByTipoEvento(String tipoEvento);
+    TipoEventoModel findByTipoEvento(String tipoEvento);
 }

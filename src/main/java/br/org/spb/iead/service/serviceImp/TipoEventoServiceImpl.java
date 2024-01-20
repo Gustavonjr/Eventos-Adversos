@@ -1,6 +1,6 @@
 package br.org.spb.iead.service.serviceImp;
 
-import br.org.spb.iead.model.TipoEvento;
+import br.org.spb.iead.model.eventos.TipoEventoModel;
 import br.org.spb.iead.repository.TipoEventoRepository;
 import br.org.spb.iead.service.TipoEventoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +15,22 @@ public class TipoEventoServiceImpl implements TipoEventoService {
     TipoEventoRepository tipoEventoRepository;
 
     @Override
-    public List<TipoEvento> findAll() {
+    public List<TipoEventoModel> findAll() {
         return tipoEventoRepository.findAll();
     }
 
     @Override
-    public TipoEvento findById(long id) {
+    public TipoEventoModel findById(long id) {
         return tipoEventoRepository.findById(id).get();
     }
 
     @Override
-    public TipoEvento save(TipoEvento tipoEvento) {
+    public TipoEventoModel save(TipoEventoModel tipoEvento) {
         return tipoEventoRepository.save(tipoEvento);
     }
 
     @Override
-    public TipoEvento findByTipoEvento(String tipoEvento) {
+    public TipoEventoModel findByTipoEvento(String tipoEvento) {
         return tipoEventoRepository.findByTipoEvento(tipoEvento);
     }
 }

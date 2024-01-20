@@ -56,20 +56,18 @@
     <nav class="navbar navbar-dark bg-dark">
         <a href="/"><span class="navbar-brand mb-0 h1" style="font-weight: bold;" th:text="${config.nomeSite}">HBPS</span></a>
         <div class="ml-auto">
-            <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento</a>
-            <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
-            <a href="/config" class="btn btn-secondary" role="button">Configurações</a>
+            <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento Adverso</a>
         </div>
     </nav>
     <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="/informatica">Informatica</a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="/config">Configurações</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="/usuarios">Usuarios</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="/setoresConfig">Setores</a>
         </li>
     </ul>
 </header>
@@ -96,6 +94,7 @@
 
             <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Cadastrar</button>
             <a href="/" class="btn btn-light" role="button" style="margin-top: 10px;">Cancelar</a>
+
         </form>
     </div>
 

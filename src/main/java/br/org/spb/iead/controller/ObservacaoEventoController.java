@@ -1,10 +1,9 @@
 package br.org.spb.iead.controller;
 
-import br.org.spb.iead.model.Evento;
-import br.org.spb.iead.model.ObservacaoEvento;
+import br.org.spb.iead.model.eventos.Evento;
+import br.org.spb.iead.model.eventos.ObservacaoEvento;
 import br.org.spb.iead.repository.ObservacaoEventoRepository;
 import br.org.spb.iead.service.serviceImp.EventoServiceImpl;
-import br.org.spb.iead.service.serviceImp.ObservacaoEventoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

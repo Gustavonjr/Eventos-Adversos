@@ -1,11 +1,11 @@
-package br.org.spb.iead.model;
+package br.org.spb.iead.model.eventos;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "TB_PROBLEMA")
-public class Problema {
+public class ProblemaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class Problema {
 
 
     @ManyToOne
-    private Processo processo;
+    private ProcessoModel processo;
 
 
     public long getId() {
@@ -35,11 +35,11 @@ public class Problema {
         this.problema = problema;
     }
 
-    public Processo getProcesso() {
+    public ProcessoModel getProcesso() {
         return processo;
     }
 
-    public void setProcesso(Processo procsso) {
+    public void setProcesso(ProcessoModel procsso) {
         this.processo = procsso;
     }
 }

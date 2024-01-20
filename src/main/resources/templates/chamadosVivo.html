@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Inicio</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Bootstrap JS (Optional if you don't need dropdown functionality) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-U1m7GzCp5TzAuAMrh2o7j2jcVBxU6PA0TkSlHNf6zJkStqyf3W8KhVy7xkUEfviB" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/"><span class="navbar-brand mb-0 h1" style="font-weight: bold;" th:text="${config.nomeSite}">HBPS</span></a>
+        <div class="ml-auto">
+            <a href="/novoevento" class="btn btn-primary" role="button">Novo Evento</a>
+            <a href="/eventos" class="btn btn-secondary" role="button">Eventos</a>
+            <a href="/config" class="btn btn-secondary" role="button">Configurações</a>
+        </div>
+    </nav>
+
+
+</header>
+
+
+
+</body>
+</html>

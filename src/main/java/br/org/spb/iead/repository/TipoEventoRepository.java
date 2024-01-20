@@ -1,9 +1,9 @@
 package br.org.spb.iead.repository;
 
-import br.org.spb.iead.model.TipoEvento;
+import br.org.spb.iead.model.eventos.TipoEventoModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TipoEventoRepository extends JpaRepository<TipoEvento, Long> {
+public interface TipoEventoRepository extends JpaRepository<TipoEventoModel, Long> {
 
-    TipoEvento findByTipoEvento(String tipoEvento);
+    TipoEventoModel findByTipoEvento(String tipoEvento);
 }

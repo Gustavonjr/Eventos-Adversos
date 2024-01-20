@@ -1,6 +1,6 @@
 package br.org.spb.iead.service;
 
-import br.org.spb.iead.model.ObservacaoEvento;
+import br.org.spb.iead.model.eventos.ObservacaoEvento;
 
 import java.util.List;
 

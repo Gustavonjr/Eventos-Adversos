@@ -1,14 +1,12 @@
-package br.org.spb.iead.model;
+package br.org.spb.iead.model.eventos;
 
-
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "TB_PROCESSO")
-public class Processo {
+public class ProcessoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,14 +17,14 @@ public class Processo {
 
 
     @ManyToOne
-    private TipoEvento tipoEvento;
+    private TipoEventoModel tipoEvento;
 
 
-    public Processo(){
+    public ProcessoModel(){
 
     }
 
-    public Processo(String processo) {
+    public ProcessoModel(String processo) {
         this.processo = processo;
     }
 
@@ -46,11 +44,11 @@ public class Processo {
         this.processo = processo;
     }
 
-    public TipoEvento getTipoEvento() {
+    public TipoEventoModel getTipoEvento() {
         return tipoEvento;
     }
 
-    public void setTipoEvento(TipoEvento tipoEvento) {
+    public void setTipoEvento(TipoEventoModel tipoEvento) {
         this.tipoEvento = tipoEvento;
     }
 }

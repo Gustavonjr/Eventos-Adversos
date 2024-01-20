@@ -1,15 +1,15 @@
 package br.org.spb.iead.service;
 
-import br.org.spb.iead.model.Processo;
+import br.org.spb.iead.model.eventos.ProcessoModel;
 
 import java.util.List;
 
 public interface ProcessoService {
 
-    List<Processo> findAll();
-    Processo findByID(long id);
-    Processo save(Processo processo);
+    List<ProcessoModel> findAll();
+    ProcessoModel findByID(long id);
+    ProcessoModel save(ProcessoModel processo);
 
-    Processo findByProcesso(String processo);
+    ProcessoModel findByProcesso(String processo);
 
 }

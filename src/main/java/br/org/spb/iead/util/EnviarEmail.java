@@ -1,8 +1,8 @@
 package br.org.spb.iead.util;
 
 import br.org.spb.iead.model.Config;
-import br.org.spb.iead.model.Evento;
-import br.org.spb.iead.model.ObservacaoEvento;
+import br.org.spb.iead.model.eventos.Evento;
+import br.org.spb.iead.model.eventos.ObservacaoEvento;
 import br.org.spb.iead.repository.ConfigRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.SimpleMailMessage;

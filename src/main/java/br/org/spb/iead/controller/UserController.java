@@ -13,13 +13,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class UserController {
@@ -50,11 +51,11 @@ public class UserController {
     public ModelAndView getUsuariosForm() {
         ModelAndView mv = new ModelAndView("usuarios");
         Config config = configService.findById(1);
+        List<UserModel> usuarios = userService.findAll();
+        mv.addObject(usuarios);
         mv.addObject(config);
         return mv;
     }
-
-
 
     @RequestMapping(value = "/usuarios", method = RequestMethod.POST)
     public String saveUsuario(@Valid UserModel userModel, BindingResult result, RedirectAttributes attributes){
@@ -68,4 +69,8 @@ public class UserController {
         return "redirect:/usuarios";
     }
 
+    @DeleteMapping("/usuarios")
+    public ResponseEntity<Void> deleteUsuarios(@RequestParam("users") List<Long> userIds) {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
